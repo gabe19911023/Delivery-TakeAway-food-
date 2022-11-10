@@ -1,0 +1,262 @@
+/*Classic Theme*/
+/*
+  Author name : basti
+  Website : http://bastisapp.com
+  Item buy link : https://codecanyon.net/item/karenderia-multiple-restaurant-system/9118694
+*/
+
+@media (min-width: 320px) { 
+    
+    /* .sidebar-logo{
+        border:1px solid black;
+    }	    */
+
+    /* #desktop-top-menu{
+      display:none;
+    }
+
+    #mobile-top-menu{
+      display:block;
+    } */
+    
+    .sidebar-panel{
+       transform: translate(-280px,0); 
+    }
+    
+    .main-container{
+      padding-left:0;
+      padding-top:90px;
+    }    
+
+    .rounded-status-report{
+        max-width:90%;
+    }
+    .mb-3, .my-3 {
+        margin-bottom: 0.5rem !important;
+    }
+
+    .rounded-status-report {
+        min-height:120px;
+    }
+
+    .top-container{        
+        padding-left: 0px;
+        min-height:inherit        
+    }
+    
+    .top-container #mobile-top-menu .p-3{    
+        padding:0 !important;
+    }
+
+    .main-container{
+        padding-top: 70px;
+    }
+
+    .breadcrumbs{
+        margin-bottom:0;
+    }    
+    .breadcrumbs a, .breadcrumbs span, .breadcrumbs .separator
+    {
+        font-size: 14px;
+    }
+    .navbar{
+        padding-left: 0;
+    }
+
+    .file_wrapper li img{
+        width: 80px;
+        height: 80px;
+    }
+
+    .file_wrapper li {             
+        margin: 10px;
+        width: 87px;
+        height: 87px;
+        float: left;  
+        margin-bottom:20px;    
+    }
+
+    .hamburger-inner, .hamburger-inner::after, .hamburger-inner::before{
+      width: 30px;
+      height: 3px;
+    }
+
+    .hamburger-box{
+        width: 30px;
+        height: 10px;  
+    }  
+
+    .pause-order-small button
+    {
+      padding: 4px 10px;
+    }      
+
+}
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+   
+   h6{
+       font-size: 13px !important;       
+   }
+   h5{
+    font-size: 14px !important;       
+   }
+   .mt-4, .my-4,
+   .mb-4, .my-4
+   {
+    margin-bottom:0.5rem !important;
+   }
+
+   .form-label-group > label,
+   .btn-green,
+   .form-control-text,
+   .ktables_list th,
+   .ktables_list td ,
+   .ktables_list td h6
+   {
+     font-size: 12px !important;
+   }
+    
+   .form-control-text{
+     min-height: 45px;    
+   }
+
+   .ktables_list th{       
+       font-weight: 700;
+       padding:5px;
+   }
+
+   .pagination .page-link{
+       font-size: 12px;
+       padding: 8px;
+   }
+
+   p, .card, .modal table, .dataTables_info, .dropdown a, .font12{
+       font-size: 11px;       
+   }
+
+   #translation-container .card-body{
+       padding: 5px;
+   }
+
+   #translation-container a.btn{    
+      padding: 0;
+      margin-bottom: 8px;
+   }
+
+   .w-75{
+       width: 100% !important;
+   }
+
+   .btn.delay-btn {
+      padding: 5px 6px;
+   }      
+   
+   .addons-image{       
+       height: 150px !important;
+   }
+
+}
+
+
+
+@media (min-width: 768px) {
+    
+    /* .sidebar-logo{
+        border:1px solid rgb(0, 255, 149);
+    }	 */
+
+    
+   #translation-container .card-body{
+        padding: 0;
+    }
+
+    #translation-container a.btn{    
+       padding: 0;
+       margin-bottom: 8px;
+    }
+    
+    
+}
+
+@media (min-width: 992px) {
+    
+    /* .sidebar-logo{
+        border:1px solid red;
+    }	 */
+
+    .top-container{
+        padding-left: 280px;
+    }
+
+    /* #desktop-top-menu{
+    display:flex;
+    }
+
+    #mobile-top-menu{
+    display:none;
+    } */
+    
+    .sidebar-panel{
+    transform: translate(0,0) !important;
+    }
+        
+    .main-container{
+    padding-left: 260px;
+    padding-top: 100px;
+    min-height: 100vh;
+    width:100%;
+    }
+
+    .table-item .cuisine-truncate{
+        max-width: 300px;
+     }    
+
+     .mb-3, .my-3 {
+        margin-bottom: 1rem !important;
+    }    
+
+    .rounded-status-report {
+        min-height:250px;
+    }
+    
+    .breadcrumbs{
+        margin-bottom: 1.5rem;
+    }
+    .breadcrumbs a, .breadcrumbs span, .breadcrumbs .separator{
+        font-size: 1rem;
+    }
+    .navbar{
+        padding:0;
+    }
+            
+    .file_wrapper li img{
+      width:150px;
+      height:150px;
+    }
+    .file_wrapper li {
+        position: relative;
+        margin: 10px;
+        width: 157px;
+        height: 157px;
+        float: left;  
+        margin-bottom:30px;
+    }
+
+}
+
+@media (min-width: 1200px) {     
+    /* .sidebar-logo{
+        border:1px solid yellow;
+    }	 */
+}
+
+@media (min-width: 1400px) {
+    /* .sidebar-logo{
+        border:1px solid orange;
+    }	    */
+        
+ }
+

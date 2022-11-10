@@ -1,0 +1,121 @@
+<table style="width:100%"  class="items" >
+ <thead>
+ <tr>
+  <td style="width:50%;"><b>{{ label.items_ordered }}</b></td>
+  <td style="width:30%;"><b>{{ label.qty }}</b></td>
+  <td style="width:20%;"><b>{{ label.price}}</b></td>
+ </tr>
+ </thead>
+ <tr>
+  <td colspan="3" style="padding:0;"><div style="background-color:#B69A81; min-height:3px;"></div></td>
+ </tr>
+ 
+  {% for item in items %}
+ <tr>
+  <td>
+  <b>{{item.item_name}}</b>
+  {% if item.price.size_name %}
+  ({{item.price.size_name}})
+  {% endif %}
+  
+   <br/>
+  
+  {% if item.price.discount>0 %}
+    <del>{{item.price.pretty_price}}</del> {{item.price.pretty_price_after_discount}}
+  {% else %}
+     {{item.price.pretty_price}}
+  {% endif %}
+  
+   {% if item.item_changes=='replacement' %}
+   <br>Replacement
+   <br/>Replace "{{item.item_name_replace}}"      
+  {% endif %}
+  
+  {% if item.special_instructions %}
+   {{item.special_instructions}}
+  {% endif %}
+  
+  {% if item.attributes %}
+  <br/>
+     {% for attributes_key, attributes in item.attributes %}
+        {% for attributes_index, attributes_data in attributes %}
+          {{attributes_data}}
+             {% if attributes_index<(attributes.length-1) %}
+             ,
+             {% endif %}
+        {% endfor %} 
+     {% endfor %}
+  {% endif %}
+  
+  </td>
+  <td style="padding:0 20px 0;">{{item.qty}}</td>
+  <td>
+   {% if item.price.discount>0 %}
+    {{ item.price.pretty_total_after_discount }}
+  {% else %}
+    {{ item.price.pretty_total }}
+  {% endif %}
+  </td>
+ </tr>      
+ 
+<!--ADDON-->
+{% for index_addon, addons in item.addons %}
+<tr>
+ <td colspan="3" style="padding:0 8px 0;"><b>{{addons.subcategory_name}}</b></td>     
+</tr>
+    
+{% for addon_items in addons.addon_items %}
+<tr>
+ <td>{{addon_items.pretty_price}} {{addon_items.sub_item_name}}</td>
+ <td style="padding:0 20px 0;">{{addon_items.qty}}</td>
+ <td>{{addon_items.pretty_addons_total}}</td>
+</tr>
+{% endfor %}
+
+{% endfor %}
+<!--ADDON-->
+
+ <!-- ADDITIONAL CHARGE -->      
+{% for item_charge in item.additional_charge_list %}
+<tr>
+ <td><i>{{item_charge.charge_name}}</i></td>
+ <td></td>
+ <td>{{item_charge.pretty_price}}</td>
+</tr>
+{% endfor %}
+<!-- ADDITIONAL CHARGE -->  
+
+ 
+ {% endfor %} <!--ITEMS-->
+ 
+ <tr>
+  <td colspan="3" style="padding:0;"><div style="background-color:#B69A81; min-height:3px;"></div></td>
+ </tr> 
+
+ <!--SUMMARY-->    
+{% for summary in summary %}    
+ <tr class="summary_order">
+  <td></td>
+  <td style="padding:0 20px 0;">
+  
+      {% if summary.type=='total'  %}  
+       <b>{{summary.name}} : </b>
+      {% else %}  
+       {{summary.name}} :
+      {% endif %}
+  
+  </td>
+  <td>
+  
+     {% if summary.type=='total'  %}  
+     <b>{{summary.value}}</b>
+     {% else %}  
+     {{summary.value}}
+     {% endif %}
+  
+  </td>
+ </tr> 
+ {% endfor %}      
+ <!--SUMMARY-->      
+
+</table>

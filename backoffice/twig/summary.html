@@ -1,0 +1,49 @@
+<table style="width:100%" class="summary">
+ <tr>
+  <td style="width:50%;" valign="top">        
+    <table style="width:100%;">
+     <tr>
+      <td colspan="2"><h3>SUMMARY</h3></td>          
+     </tr>
+     <tr>
+      <td style="width:35%;" valign="top">Order Number:</td>
+      <td valign="top">{{order.order_info.order_id}}</td>
+     </tr>
+     <tr>
+      <td style="width:35%;" valign="top">Order Type:</td>
+      <td valign="top">{{order.order_info.order_type}}</td>
+     </tr>
+     <tr>
+      <td style="width:35%;" valign="top">Place On:</td>
+      <td valign="top">{{order.order_info.place_on}}</td>
+     </tr>
+     <tr>
+      <td style="width:35%;" valign="top">Order Total:</td>
+      <td valign="top">{{total}}</td>
+     </tr>
+     <tr>
+      <td style="width:35%;" valign="top">{{label.date}}:</td>
+      <td valign="top" >
+       {% if order.order_info.whento_deliver=='now' %}
+	   {{order.order_info.schedule_at}}
+	   {% else %}
+	   {{order.order_info.schedule_at}}
+	   {% endif %}
+      </td>
+     </tr>
+    </table>
+  </td>
+  <td style="width:50%;" valign="top">     
+  {% if order.order_info.service_code=='delivery' %}
+    <table style="width:100%;">
+     <tr>
+      <td colspan="2"><h3>DELIVERY ADDRESS</h3></td>          
+     </tr>
+     <tr><td>{{order.order_info.customer_name}}</td></tr>
+     <tr><td>{{order.order_info.contact_number}}</td></tr>
+     <tr><td>{{order.order_info.delivery_address}}</td></tr>
+    </table>
+  {% endif %}  
+  </td>
+ </tr>
+</table>   

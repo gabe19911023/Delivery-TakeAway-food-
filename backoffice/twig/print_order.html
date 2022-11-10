@@ -1,0 +1,273 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+<link href='http://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,100;0,200;0,400;0,500;1,100;1,200&display=swap' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap' rel='stylesheet' type='text/css'>
+<style type="text/css">
+body {
+font-family: 'Petrona', serif;
+}	
+
+p{
+font-family: 'Petrona', serif;
+font-size:14px;
+margin:0;
+}	
+
+h5{
+font-size:17px;
+}
+h5,h4,h3,h2,h1{
+margin:0;	
+}
+table.collapse {
+  border-collapse: collapse;  
+  font-size:14px;
+}
+table.collapse thead{
+font-size:15px;
+font-weight:600;
+}
+
+table.collapse td {  
+  padding:8px 10px;
+}
+table.summary td{
+padding:3px 5px;
+}
+
+th,td {
+  padding: 3pt;  
+}
+
+.summary td,
+table.items td,
+table.summary_order td
+{
+font-size:16px;
+}
+table.items thead td{
+font-size:17px;
+}
+
+table.summary_order b{
+font-size:18px;
+}
+
+</style>
+</head>
+<body>
+
+<table class="collapse" style="width:100%;">
+ <tr>
+  <td style="background:#fef9ef;padding:20px 30px;">
+    <img style="max-width:20%;max-height:50px;" src="{{receipt_logo}}">
+  </td>
+ </tr>
+ <tr>
+   <td valign="middle" align="center" style="padding:30px;">
+    <h2 style="margin:0;">{{receipt_thank_you}}</h2>
+   </td>
+ </tr>
+ 
+ <tr>
+  <td style="background:#fef9ef;">
+   <table style="width:100%" class="summary">
+     <tr>
+      <td style="width:50%;" valign="top">        
+        <table style="width:100%;">
+         <tr>
+          <td colspan="2"><h3>SUMMARY</h3></td>          
+         </tr>
+         <tr>
+          <td style="width:35%;" valign="top">Order #:</td>
+          <td valign="top">{{order.order_info.order_id}}</td>
+         </tr>
+         <tr>
+          <td style="width:35%;" valign="top">Place On:</td>
+          <td valign="top">{{order.order_info.place_on}}</td>
+         </tr>
+         <tr>
+          <td style="width:35%;" valign="top">Order Total:</td>
+          <td valign="top">{{total}}</td>
+         </tr>
+         <tr>
+          <td style="width:35%;" valign="top">Delivery Date/Time:</td>
+          <td valign="top" >
+           {% if order.order_info.whento_deliver=='now' %}
+		   {{order.order_info.schedule_at}}
+		   {% else %}
+		   {{order.order_info.schedule_at}}
+		   {% endif %}
+          </td>
+         </tr>
+        </table>
+      </td>
+      <td style="width:50%;" valign="top">       
+        <table style="width:100%;">
+         <tr>
+          <td colspan="2"><h3>DELIVERY ADDRESS</h3></td>          
+         </tr>
+         <tr><td>{{order.order_info.customer_name}}</td></tr>
+         <tr><td>{{order.order_info.contact_number}}</td></tr>
+         <tr><td>{{order.order_info.delivery_address}}</td></tr>
+        </table>
+      </td>
+     </tr>
+   </table>   
+  </td>
+ </tr>
+ 
+ <tr>
+   <td>
+     <table style="width:100%"  class="items" >
+     <thead>
+     <tr>
+      <td style="width:50%;">ITEMS ORDERED</td>
+      <td style="width:30%;">QTY</td>
+      <td style="width:20%;">PRICE</td>
+     </tr>
+     </thead>
+     <tr>
+      <td colspan="3" style="padding:0;"><div style="border-bottom:thin solid black;"></div></td>
+     </tr>
+     
+      {% for item in items %}
+     <tr>
+      <td>
+      <b>{{item.item_name}}</b>
+      {% if item.price.size_name %}
+      ({{item.price.size_name}})
+      {% endif %}
+      
+       <br/>
+      
+      {% if item.price.discount>0 %}
+        <del>{{item.price.pretty_price}}</del> {{item.price.pretty_price_after_discount}}
+      {% else %}
+         {{item.price.pretty_price}}
+      {% endif %}
+      
+       {% if item.item_changes=='replacement' %}
+       <br>Replacement
+       <br/>Replace "{{item.item_name_replace}}"      
+      {% endif %}
+      
+      {% if item.special_instructions %}
+       {{item.special_instructions}}
+      {% endif %}
+      
+      {% if item.attributes %}
+      <br/>
+         {% for attributes_key, attributes in item.attributes %}
+            {% for attributes_index, attributes_data in attributes %}
+              {{attributes_data}}
+                 {% if attributes_index<(attributes.length-1) %}
+                 ,
+                 {% endif %}
+            {% endfor %} 
+         {% endfor %}
+      {% endif %}
+      
+      </td>
+      <td style="padding:0 20px 0;">{{item.qty}}</td>
+      <td>
+       {% if item.price.discount>0 %}
+        {{ item.price.pretty_total_after_discount }}
+      {% else %}
+        {{ item.price.pretty_total }}
+      {% endif %}
+      </td>
+     </tr>      
+     
+    <!--ADDON-->
+    {% for index_addon, addons in item.addons %}
+    <tr>
+     <td colspan="3" style="padding:0 8px 0;"><b>{{addons.subcategory_name}}</b></td>     
+    </tr>
+        
+    {% for addon_items in addons.addon_items %}
+    <tr>
+     <td>{{addon_items.pretty_price}} {{addon_items.sub_item_name}}</td>
+     <td style="padding:0 20px 0;">{{addon_items.qty}}</td>
+     <td>{{addon_items.pretty_addons_total}}</td>
+    </tr>
+    {% endfor %}
+    
+    {% endfor %}
+    <!--ADDON-->
+    
+     <!-- ADDITIONAL CHARGE -->      
+    {% for item_charge in item.additional_charge_list %}
+    <tr>
+     <td><i>{{item_charge.charge_name}}</i></td>
+     <td></td>
+     <td>{{item_charge.pretty_price}}</td>
+    </tr>
+    {% endfor %}
+    <!-- ADDITIONAL CHARGE -->  
+    
+     
+     {% endfor %} <!--ITEMS-->
+     
+     <tr>
+      <td colspan="3" style="padding:0;"><div style="border-bottom:thin solid black;"></div></td>
+     </tr> 
+    
+     <!--SUMMARY-->    
+    {% for summary in summary %}    
+     <tr class="summary_order">
+      <td></td>
+      <td style="padding:0 20px 0;">
+      
+          {% if summary.type=='total'  %}  
+	       <b>{{summary.name}} : </b>
+	      {% else %}  
+	       {{summary.name}} :
+	      {% endif %}
+      
+      </td>
+      <td>
+      
+         {% if summary.type=='total'  %}  
+	     <b>{{summary.value}}</b>
+	     {% else %}  
+	     {{summary.value}}
+	     {% endif %}
+      
+      </td>
+     </tr> 
+     {% endfor %}      
+     <!--SUMMARY-->      
+    
+     
+     </table>
+   </td>
+ </tr>
+  
+ <tr>
+  <td style="background:#fef9ef;padding:20px 30px;">
+    
+    <table style="width:100%; table-layout: fixed;">
+	  <tr>
+	    <th colspan="3" style="text-align: left;"><h5>Contact Us</h5></th>
+	    <th colspan="7" style="text-align: left;"><h5>Information</h5></th>
+	  </tr>
+	  <tr>
+	    <td colspan="3" style="text-align: left; padding:0 3px;" valign="top">
+	     <p>{{site.address}}</p>
+         <p>{{site.contact}}</p>
+         <p>{{site.email}}</p
+	    </td>
+	    <td colspan="7" valign="top" style="padding:0 3px;"><p>{{receipt_footer}}</p></td>
+	  </tr>
+	</table>
+  
+  </td>
+ </tr>
+ 
+</table>
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+/*Classic Theme*/
+
+html {
+  font-family: 'Open Sans', sans-serif;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background:#fff;
+}
+
+a:hover{
+text-decoration:none;
+}
+
+p{
+font-size:14px;
+}
+
+p.dim{
+color:#a3a3a3;
+}
+
+label.dim,
+a.dim
+{
+color:#404445;
+font-size:12px;
+}
+
+a.underline{
+text-decoration:underline;
+}
+
+h6,h5
+{
+font-weight:600;
+}
+
+h6{
+text-align: center;
+}
+
+.badge{
+font-weight:500;
+}
+
+.login-wrapper{
+margin: 0;
+padding: 0;
+}
+
+.login-wrapper .left-container{
+min-height: 100vh;
+background-image:url("../images/admin-login-banner@2x.jpg");
+background-size: cover;
+background-color: #94c6c3;
+}
+
+.controller-auth .login-wrapper .left-container,
+.controller-resetpswd .login-wrapper .left-container
+{
+background-image:url("../images/login-banner2@2x.jpg");
+background-color: #c8bad8;
+}
+
+.login-wrapper .right-container{
+min-height: 100vh;
+text-align: center;
+}
+.img-60{
+max-width: 60px;
+height: 60px;
+}
+
+.logok-wrapper,
+.app-store-wrap
+{
+margin:20px;
+}
+
+.right-container-wrap{
+display:block;
+margin-left:5em;
+margin-right:5em;
+}
+
+.app-store-wrap{
+}
+.app-store-wrap img{
+max-width: 8em;
+}
+
+.main-container{
+min-height: 65vh;
+width:80%;
+margin:auto;
+}
+
+.main-container-wrap{
+padding:50px 20px;
+text-align: left;
+}
+
+.font11
+{
+font-size:11px !important;
+}
+
+
+
+/*
+FORMS
+*/
+
+form .errorMessage{
+text-align: initial;
+font-size: 12px;
+color:#dc3545;
+padding:5px 0px 0px 0px;
+}
+
+.btn-green{
+background:#3ecf8e;
+color:#fff;
+font-size:15px;
+font-weight:500;
+border-radius: .45rem;
+padding:12px;
+}
+
+.btn-green:focus,
+.btn-green:hover
+{
+color:#fff !important;
+}
+
+.btn-full{
+width:100%;
+}
+.btn-green.normal
+{
+padding:.375rem .75rem;
+}
+
+.form-control-text{
+font-size:15px;
+font-weight:500;
+border-radius: .45rem;
+padding-left:15px !important;
+background:#f6f7f9;
+border:none;
+min-height:55px;
+}
+
+.form-label-group > label{
+font-size:15px;
+font-weight:500;
+}
+
+/* CHECKBOX */
+.custom-checkbox{
+margin-left:10px;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #3ecf8e!important;
+}
+
+.custom-checkbox .custom-control-input:checked:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 255, 0, 0.25)
+}
+.custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 0, 0, 0.25)
+}
+.custom-checkbox .custom-control-input:active ~ .custom-control-label::before {
+  background-color: #C8FFC8; 
+}
+
+label span.required{
+display:none;
+}
+
+.change_field_password{
+position:relative;
+}
+
+.change_field_password .change_field_href{
+position: absolute;
+right: 15px;
+bottom: 10px;
+display: block;
+padding: 5px;
+color:#000;
+}
+
+
+/*** RESPONSIVE ***/
+@media (min-width: 1200px) {  
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {  
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+
+  .login-wrapper .right-container-wrap{    
+    width: 100%;
+    margin: auto;
+  }
+  .login-wrapper .main-container{    
+    width: 100%;
+    min-height: auto;
+  }
+  .main-container-wrap{
+    padding:20px;
+  }  
+  .form-label-group > label,
+  .btn-green,
+  .form-control-text
+  {
+    font-size: 12px;
+  }
+  .form-control-text{
+    min-height: 45px;    
+  }
+  
+}
+
+/* Landscape phones and portrait tablets */
+@media (max-width: 767px) {
+  .logok-wrapper{
+    display:none;
+  }
+  .login-wrapper .left-container{
+    min-height: 35vh;
+  }  
+  .main-container-wrap{
+    padding:20px;
+  }  
+  .form-label-group > label,
+  .btn-green,
+  .form-control-text
+  {
+    font-size: 12px;
+  }
+  .form-control-text{
+    min-height: 45px;    
+  }
+
+}
+
+/* Portrait phones and smaller */
+@media (max-width: 480px) { 
+  .login-wrapper .left-container
+  {
+    min-height: 25vh;
+  }
+  .login-wrapper .right-container-wrap{    
+    width: 100%;
+    margin: auto;
+  }
+  .login-wrapper .main-container{    
+    width: 100%;
+    min-height: auto;
+  } 
+  .form-label-group > label,
+  .btn-green,
+  .form-control-text
+  {
+    font-size: 12px;
+  }
+
+  .form-control-text{
+    min-height: 45px;    
+  }
+
+  .app-store-wrap img{
+    max-width: 100%;
+  }
+
+}
+/*** END RESPONSIVE ***/

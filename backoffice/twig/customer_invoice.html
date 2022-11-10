@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
+<link href='http://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,100;0,200;0,400;0,500;1,100;1,200&display=swap' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap' rel='stylesheet' type='text/css'>
+<style type="text/css">
+body {
+font-family: 'Petrona', serif;
+}	
+
+p{
+font-family: 'Petrona', serif;
+font-size:14px;
+margin:0;
+padding-bottom:20px;
+}	
+
+h5{
+font-size:17px;
+}
+h5,h4,h3,h2,h1{
+margin:0;	
+}
+table.collapse {
+  border-collapse: collapse;  
+  font-size:14px;
+}
+table.collapse thead{
+font-size:15px;
+font-weight:600;
+}
+
+table.collapse td {  
+  padding:8px 10px;
+}
+table.summary td{
+padding:3px 5px;
+}
+
+th,td {
+  padding: 3pt;  
+}
+
+.summary td,
+table.items td,
+table.summary_order td
+{
+font-size:16px;
+}
+table.items thead td{
+font-size:17px;
+}
+
+table.summary_order b{
+font-size:18px;
+}
+
+</style>
+</head>
+<body>
+
+<table style="width:100%;">
+ <tr>
+  <td style="background:#fef9ef;padding:20px 30px;">
+    <img style="max-width:20%;max-height:50px;" src="{{logo}}">
+  </td>
+ </tr>
+ <tr>
+   <td valign="middle" align="center" style="padding:30px;padding-bottom:10px;">
+    <h2 style="margin:0;">Invoice #{{invoice_number}}</h2>    
+   </td>   
+ </tr>
+ <tr>
+   <td valign="middle" style="padding-bottom:10px;" >
+     <table align="center" width="80%">
+      <tr> 
+       <td>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ullamcorper sapien ullamcorper nibh aliquam, non rutrum orci vulputate. Donec congue ac tortor eu dignissim. Cras a libero lobortis tellus elementum consequat eget vitae turpis. Mauris non lorem odio. Integer in lacus bibendum, accumsan risus nec, pretium felis. Aliquam auctor nec eros a mattis. Praesent eu ligula vitae ex rhoncus aliquam. Pellentesque ut mattis lectus. Maecenas ultrices a lorem et interdum. Mauris lacinia nec libero id tincidunt. Nunc accumsan quis enim vitae pellentesque.</p>        
+       </td>
+      </tr>
+     </table>
+   </td>   
+ </tr>
+ 
+ <tr>
+  <td style="background:#fef9ef;">
+  
+  <table style="width:100%" class="summary">
+     <tr>
+      <td style="width:50%;" valign="top">        
+        <table style="width:100%;">
+         <tr>
+          <td colspan="2"><h3>ORDER DETAILS</h3></td>          
+         </tr>
+         <tr>
+          <td style="width:35%;" valign="top">Order #:</td>
+          <td valign="top">{{order.order_info.order_id}}</td>
+         </tr>
+         <tr>
+          <td style="width:35%;" valign="top">Place On:</td>
+          <td valign="top">{{order.order_info.place_on}}</td>
+         </tr>         
+         <tr>
+          <td style="width:35%;" valign="top">Delivery Date/Time:</td>
+          <td valign="top" >
+           {% if order.order_info.whento_deliver=='now' %}
+		   {{order.order_info.schedule_at}}
+		   {% else %}
+		   {{order.order_info.schedule_at}}
+		   {% endif %}
+          </td>
+         </tr>
+        </table>
+      </td>
+      <td style="width:50%;" valign="top">       
+        <table style="width:100%;">
+         <tr>
+          <td colspan="2"><h3>SUMMARY</h3></td>          
+         </tr>
+         <tr>
+          <td style="width:35%;" valign="top">Total amount :</td>
+          <td valign="top">{{summary.net_payment}}</td>
+         </tr>
+         <tr>
+          <td style="width:35%;" valign="top">Paid :</td>
+          <td valign="top">{{summary.total_paid}}</td>
+         </tr>
+         <tr>
+          <td style="width:35%;" valign="top">Amount to pay :</td>
+          <td valign="top"><b>{{summary.total_credit_pretty}}</b></td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+   </table>    
+  
+  </td>
+ </tr>
+ 
+ <tr>
+  <td align="center" style="padding:30px;">
+     <a href="" style="display:block;margin:auto;max-width:200px;padding:10px;background:#3ecf8e;color:#fff;
+     text-decoration:none;font-size:18px;font-weight:bold;">
+     Pay Now
+     </a>
+  </td>
+ </tr>
+ 
+  <tr>
+  <td style="background:#fef9ef;padding:20px 30px;">
+    
+    <table style="width:100%; table-layout: fixed;">
+	  <tr>
+	    <th colspan="3" style="text-align: left;"><h5>Contact Us</h5></th>
+	    <th colspan="7" style="text-align: left;"><h5>Information</h5></th>
+	  </tr>
+	  <tr>
+	    <td colspan="3" style="text-align: left; padding:0 3px;" valign="top">
+	     <p style="padding:0;">{{site.address}}</p>
+         <p style="padding:0;">{{site.contact}}</p>
+         <p style="padding:0;">{{site.email}}</p
+	    </td>
+	    <td colspan="7" valign="top" style="padding:0 3px;"><p>{{receipt_footer}}</p></td>
+	  </tr>
+	</table>
+  
+  </td>
+ </tr>
+ 
+</table>
+
+
+</body>
+</html>
