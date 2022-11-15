@@ -1083,13 +1083,13 @@ a.a_hover_normal:hover {
 
 @-webkit-keyframes shimmer {
   100% {
-    transform: translateX(100%);
+      transform: translateX(100%);
   }
 }
 
 @keyframes shimmer {
   100% {
-    transform: translateX(100%);
+      transform: translateX(100%);
   }
 }
 
@@ -1475,21 +1475,21 @@ ul.sub-menu li.active a:hover {
 
 @-webkit-keyframes flash {
   0% {
-    opacity: .4;
+      opacity: .4;
   }
 
   100% {
-    opacity: 1;
+      opacity: 1;
   }
 }
 
 @keyframes flash {
   0% {
-    opacity: .4;
+      opacity: .4;
   }
 
   100% {
-    opacity: 1;
+      opacity: 1;
   }
 }
 
@@ -1835,65 +1835,65 @@ a[disabled="true"] {
 
 @-webkit-keyframes circle {
   0% {
-    -webkit-transform: rotate(0);
-    -ms-transform: rotate(0);
-    -o-transform: rotate(0);
-    transform: rotate(0);
+      -webkit-transform: rotate(0);
+      -ms-transform: rotate(0);
+      -o-transform: rotate(0);
+      transform: rotate(0);
   }
 
   100% {
-    -webkit-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
   }
 }
 
 @-moz-keyframes circle {
   0% {
-    -webkit-transform: rotate(0);
-    -ms-transform: rotate(0);
-    -o-transform: rotate(0);
-    transform: rotate(0);
+      -webkit-transform: rotate(0);
+      -ms-transform: rotate(0);
+      -o-transform: rotate(0);
+      transform: rotate(0);
   }
 
   100% {
-    -webkit-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
   }
 }
 
 @-o-keyframes circle {
   0% {
-    -webkit-transform: rotate(0);
-    -ms-transform: rotate(0);
-    -o-transform: rotate(0);
-    transform: rotate(0);
+      -webkit-transform: rotate(0);
+      -ms-transform: rotate(0);
+      -o-transform: rotate(0);
+      transform: rotate(0);
   }
 
   100% {
-    -webkit-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
   }
 }
 
 @keyframes circle {
   0% {
-    -webkit-transform: rotate(0);
-    -ms-transform: rotate(0);
-    -o-transform: rotate(0);
-    transform: rotate(0);
+      -webkit-transform: rotate(0);
+      -ms-transform: rotate(0);
+      -o-transform: rotate(0);
+      transform: rotate(0);
   }
 
   100% {
-    -webkit-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
   }
 }
 
@@ -2162,18 +2162,18 @@ top:70px;
 
 @keyframes pulse-green {
   0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(51, 217, 178, 0.7);
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(51, 217, 178, 0.7);
   }
 
   70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 10px rgba(51, 217, 178, 0);
+      transform: scale(1);
+      box-shadow: 0 0 0 10px rgba(51, 217, 178, 0);
   }
 
   100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(51, 217, 178, 0);
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(51, 217, 178, 0);
   }
 }
 
@@ -2197,27 +2197,27 @@ top:70px;
 
 @keyframes borealisBar {
   0% {
-    left: 0%;
-    right: 100%;
-    width: 0%;
+      left: 0%;
+      right: 100%;
+      width: 0%;
   }
 
   10% {
-    left: 0%;
-    right: 75%;
-    width: 40%;
+      left: 0%;
+      right: 75%;
+      width: 40%;
   }
 
   90% {
-    right: 0%;
-    left: 75%;
-    width: 40%;
+      right: 0%;
+      left: 75%;
+      width: 40%;
   }
 
   100% {
-    left: 100%;
-    right: 0%;
-    width: 0%;
+      left: 100%;
+      right: 0%;
+      width: 0%;
   }
 }
 
@@ -3068,7 +3068,7 @@ form .errorMessage {
 
 @media only screen and (max-width: 780px) {
   .list-item-rows .fixed-height {
-    min-height: 100px;
+      min-height: 100px;
   }
 
   .item-image-container {
