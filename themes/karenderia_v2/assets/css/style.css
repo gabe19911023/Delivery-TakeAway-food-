@@ -3116,3 +3116,34 @@ form .errorMessage {
 .suggestion-tab li:first-child {
   display: none;
 }
+
+div#vue-change-address {
+  display: none !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .adrs-filds {
+      width: 600px !important;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .mobile_sec_part #vue-widget-nav-mobile {
+      display: none !important;
+  }
+
+  .chckpagg {
+      margin-top: 0px !important;
+  }
+
+  section#\31 -starters {
+      margin-top: 20px;
+  }
+}
+
+@media(max-width:480px) {
+  .row.search-geocomplete-container {
+
+      margin: 0px !important;
+  }
+}
