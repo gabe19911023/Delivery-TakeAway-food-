@@ -60,7 +60,7 @@
 	           <p class="m-0">
 	           <?php //echo t("Based on")
 				?> <a href="#section-review"><u><?php //echo t("{{review_count}} reviews",array('{{review_count}}'=>$data['review_count']))
-												?></u>
+																			?></u>
 	           </a>
 	           </p>
 	        </div> -->
@@ -77,7 +77,7 @@
 
 
 							<?php if (is_string($data['description']) && strlen($data['description']) > 0) : ?>
-								<div class="readmoreeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee">
+								<div class="readmore">
 									<div class="collapse" id="collapse-content" aria-expanded="false">
 										<?php echo Yii::app()->input->xssClean($data['description']) ?>
 									</div>
@@ -157,7 +157,7 @@
 				</component-merchant-services>
 				<div class="row">
 					<div class="col-4"></div>
-					<div class="col-5 widget-search-bar-mobileeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee mt-2"></div>
+					<div class="col-5 widget-search-bar-mobile mt-2"></div>
 				</div>
 			</div>
 
@@ -405,139 +405,56 @@
 
 					</div>
 				</div>
-				<!--
-       <div class="d-flex">
-          <div class="mr-3"><img class="img-20" src="<?php echo Yii::app()->theme->baseUrl . "/assets/images/clock.png" ?>"/></div>
-          <div class="flex-fill">
-             <h5><?php echo t("Opening hours") ?>:</h5>
-             <?php if (is_array($opening_hours) && count($opening_hours) >= 1) : ?>
-             <table class="w-100">              
-             <?php foreach ($opening_hours as $opening_hours_val) : ?>
-                <tr >
-                <td class="align-top pb-1"><?php echo ucwords(t($opening_hours_val['day'])) ?></td>
-                 <td class="bold align-top pb-1">
-                  <p class="m-0">
-                  <?php echo t(
-							"[start] - [end]",
-							array(
-								'[start]' => Date_Formatter::Time($opening_hours_val['start_time']),
-								'[end]' => Date_Formatter::Time($opening_hours_val['end_time'])
-							)
-						)
-					?>
-                  </p>
-                  <?php if (!empty($opening_hours_val['start_time_pm'])) : ?>
-                  
-	                  <p class="m-0">
-	                  <?php echo t(
-								"[start] - [end]",
-								array(
-									'[start]' => Date_Formatter::Time($opening_hours_val['start_time_pm']),
-									'[end]' => Date_Formatter::Time($opening_hours_val['end_time_pm'])
-								)
-							)
-						?>
-	                  </p>  
-                  
-                  <?php endif; ?>
-                  
-                  <?php if (!empty($opening_hours_val['custom_text'])) : ?>
-                  <p class="m-0"><?php echo $opening_hours_val['custom_text']; ?></p>
-                  <?php endif; ?>
-                  
-                 </td>
-                </tr>
-             <?php endforeach; ?>
-             </table>
-             <?php endif; ?>
-          </div>
-       </div>
-	-->
+				<!--d-flex-->
 
 				<div class="d-flex">
 					<div class="mr-3"><img class="img-20" src="<?php echo Yii::app()->theme->baseUrl . "/assets/images/clock.png" ?>" /></div>
 					<div class="flex-fill">
 						<h5><?php echo t("Opening hours") ?>:</h5>
-						<table class="menu-table">
-							<thead>
-								<tr>
-									<th class="align-top pb-1">Day</th>
-									<th class="bold align-top pb-1">
-										<p class="m-0">Take Away</p>
-									</th>
-									<th class="bold align-top pb-1">
-										<p class="m-0">Delivery</p>
-									</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="align-top pb-1">Monday</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 12:15 PM - 9:45 PM </p>
-									</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 03:45 PM - 9:00 PM </p>
-									</td>
-								</tr>
-								<tr>
-									<td class="align-top pb-1">Tuesday</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 12:15 PM - 9:45 PM </p>
-									</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 03:45 PM - 9:00 PM </p>
-									</td>
-								</tr>
-								<tr>
-									<td class="align-top pb-1">Wednesday</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 12:15 PM - 9:40 PM </p>
-									</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 02:00 PM - 9:00 PM </p>
-									</td>
-								</tr>
-								<tr>
-									<td class="align-top pb-1">Thursday</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 12:15 PM - 9:40 PM </p>
-									</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 02:00 PM - 9:00 PM </p>
-									</td>
-								</tr>
-								<tr>
-									<td class="align-top pb-1">Friday</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 12:15 PM - 9:40 PM </p>
-									</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 02:00 PM - 9:00 PM </p>
-									</td>
-								</tr>
-								<tr>
-									<td class="align-top pb-1">Saturday</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 12:15 PM - 9:55 PM </p>
-									</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 02:00 PM - 9:00 PM </p>
-									</td>
-								</tr>
-								<tr>
-									<td class="align-top pb-1">Sunday</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 12:15 PM - 9:55 PM </p>
-									</td>
-									<td class="bold align-top pb-1">
-										<p class="m-0"> 02:00 PM - 9:00 PM </p>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						<?php if (is_array($opening_hours) && count($opening_hours) >= 1) : ?>
+							<table class="w-100">
+								<?php foreach ($opening_hours as $opening_hours_val) : ?>
+									<tr>
+										<td class="align-top pb-1"><?php echo ucwords(t($opening_hours_val['day'])) ?></td>
+										<td class="bold align-top pb-1">
+											<p class="m-0">
+												<?php echo t(
+													"[start] - [end]",
+													array(
+														'[start]' => Date_Formatter::Time($opening_hours_val['start_time']),
+														'[end]' => Date_Formatter::Time($opening_hours_val['end_time'])
+													)
+												)
+												?>
+											</p>
+											<?php if (!empty($opening_hours_val['start_time_pm'])) : ?>
+
+												<p class="m-0">
+													<?php echo t(
+														"[start] - [end]",
+														array(
+															'[start]' => Date_Formatter::Time($opening_hours_val['start_time_pm']),
+															'[end]' => Date_Formatter::Time($opening_hours_val['end_time_pm'])
+														)
+													)
+													?>
+												</p>
+
+											<?php endif; ?>
+
+											<?php if (!empty($opening_hours_val['custom_text'])) : ?>
+												<p class="m-0"><?php echo $opening_hours_val['custom_text']; ?></p>
+											<?php endif; ?>
+
+										</td>
+									</tr>
+								<?php endforeach; ?>
+							</table>
+						<?php endif; ?>
 					</div>
 				</div>
+				<!--d-flex-->
+
 
 			</div>
 			<!--col-->
@@ -546,7 +463,7 @@
       <?php if (0/*!empty($static_maps)*/) : ?>
       <img class="rounded w-100"  src="<?php //echo $static_maps
 										?>" alt="<?php //echo $data['restaurant_name']
-													?>">
+																			?>">
       <?php endif; ?>     
     </div> -->
 
@@ -699,7 +616,8 @@
 <input type="hidden" id="url_logo" value="<?php echo $data['url_logo']; ?>">
 <div class="modal" id="changeCAddressModal" tabindex="-1" role="dialog" aria-labelledby="changeCAddressModal" aria-hidden="true" style="display: none;">
 	<div class="modal-dialog" role="document">
-		<form class="forms mt-2 mb-2 address-form" action="/api/getLocationDetails" method="post">
+		<form class="forms mt-2 mb-2 address-form" action="/api/updateSavedLocation" method="post">
+			<input type="hidden" name="<?php echo Yii::app()->request->csrfTokenName ?>" value="<?php echo Yii::app()->request->csrfToken ?>">
 			<div class="modal-content">
 				<div class="modal-body" style="overflow-y: inherit !important;">
 					<!-- <a href="javascript:;" class="btn btn-black btn-circle rounded-pill"><i class="zmdi zmdi-close font20"></i></a> -->
@@ -715,16 +633,16 @@
 						</div>
 					</div>
 					<div class="form-label-group">
-						<input class="form-control form-control-text" placeholder="" id="name" name="name" type="text" value="" required>
-						<label for="name" class="required">Number *</label>
+						<input class="form-control form-control-text" placeholder="" id="street_number" name="street_number" type="text" value="" required>
+						<label for="street_number" class="required">Number *</label>
 					</div>
 					<div class="form-label-group">
 						<input class="form-control form-control-text" placeholder="" id="address" name="address" type="text" value="" required>
 						<label for="address" class="required">Address *</label>
 					</div>
 					<div class="form-label-group">
-						<input class="form-control form-control-text" placeholder="" id="postcode" name="postcode" type="text" value="" required>
-						<label for="postcode" class="required">Postcode *</label>
+						<input class="form-control form-control-text" placeholder="" id="postal_code" name="postal_code" type="text" value="" required>
+						<label for="postal_code" class="required">Postcode *</label>
 					</div>
 					<div class="form-label-group">
 						<input class="form-control form-control-text" placeholder="" id="city" name="city" type="text" value="" required>
@@ -734,7 +652,7 @@
 				<div class="modal-footer justify-content-start">
 					<!-- <div class="border flex-fill"><button class="btn btn-black w-100">Cancel</button></div> -->
 					<div class="border flex-fill">
-						<button class="btn btn-green w-100 basic-info_submt" type="button">
+						<button class="btn btn-green w-100 basic-info_submt" type="submit">
 							<span class="label">Save</span>
 							<div class="m-auto circle-loader" data-loader="circle-side"></div>
 						</button>
