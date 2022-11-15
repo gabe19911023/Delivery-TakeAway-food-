@@ -15,7 +15,7 @@
    <div class="col">
 	  <div class="bg-light p-3 mb-3 rounded">   
 	   <div class="d-flex">
-        <p class="m-0 mr-2 text-muted text-truncate"><?php echo t("Orders")?></p><h5 ref="summary_orders" class="m-0">0</h5>
+        <p class="m-0 mr-2 text-muted text-truncate"><?php echo t("TAKE AWAY")?></p><h5 ref="summary_orders" class="m-0">0</h5>
        </div>  	  
 	  </div><!-- bg-light-->
 	</div> <!--col-->
@@ -23,18 +23,18 @@
 	<div class="col">
 	  <div class="bg-light p-3 mb-3 rounded">   
 	   <div class="d-flex">
-        <p class="m-0 mr-2 text-muted text-truncate"><?php echo t("Cancel")?></p><h5 ref="summary_cancel" class="m-0">0</h5>
+        <p class="m-0 mr-2 text-muted text-truncate"><?php echo t("DELIVERIES")?></p><h5 ref="summary_cancel" class="m-0">0</h5>
        </div>  	  
 	  </div><!-- bg-light-->
 	</div> <!--col-->
 	
-	<div class="col">
+	<!-- <div class="col">
 	  <div class="bg-light p-3 mb-3 rounded">   
 	   <div class="d-flex">
         <p class="m-0 mr-2 text-muted text-truncate"><?php echo t("Total refund")?></p><h5 ref="total_refund" class="m-0">0</h5>
        </div>  	  
-	  </div><!-- bg-light-->
-	</div> <!--col-->
+	  </div>
+	</div>  -->
 	
 	<div class="col">
 	  <div class="bg-light p-3 mb-3 rounded">   

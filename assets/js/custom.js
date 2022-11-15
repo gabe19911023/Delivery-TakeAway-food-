@@ -78,9 +78,12 @@ $(document).ready(function(e){
         // e.preventDefault(e);
         var pin = $('#pin-code').val();
         // alert(pin);
-        if(!window.verified){
-            window.confirmationResult.confirm(pin) 
-                .then(function(result) { 
+
+        // -------------- for dev purpose -------------
+
+        // if(!window.verified){
+        //     window.confirmationResult.confirm(pin) 
+        //         .then(function(result) { 
                     $('.pin-success').show();
                     $('.pin-error').hide();
                     var form = $('.phone-form');
@@ -94,10 +97,13 @@ $(document).ready(function(e){
                         error: function(response) {
                         }
                     });
-                }, function(error) { 
-                    $('.pin-error').show();
-            });
-        }
+            //     }, function(error) { 
+            //         $('.pin-error').show();
+            // });
+        // }
+
+        //  ----------- end ---------------
+        
     });    
     $(document).on('change','.top-merchant-details input[type=radio]', function() {
         updateAddress($(this).val());

@@ -241,7 +241,10 @@ id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModal" aria-hidd
       
       <h5 class="m-0 mt-2 mb-2"><?php echo t("Special Instructions")?></h5>      
       <div class="form-label-group">    
-        <textarea @input="special_instructions = $event.target.value"  class="form-control form-control-text font13" 
+        <textarea 
+        :value="special_instructions"
+        @input="special_instructions=$event.target.value?$event.target.value:''"
+        class="form-control form-control-text font13" 
               placeholder="<?php echo t("Add a note for this item (no onions, meat well cooked, etc.)")?>">
         </textarea>       
       </div>   

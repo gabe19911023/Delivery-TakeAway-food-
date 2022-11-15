@@ -2941,6 +2941,7 @@ function a0_0x24cc(t, e) {
                 add_to_cart: !1,
                 meta: [],
                 special_instructions: "",
+                special_instructions_init: "",
                 sold_out_options: [],
                 if_sold_out: "substitute",
                 view_data: [],

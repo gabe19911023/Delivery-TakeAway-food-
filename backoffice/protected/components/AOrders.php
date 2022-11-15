@@ -366,7 +366,23 @@ class AOrders
 		$count = AR_ordernew::model()->count($criteria); 
 		return intval($count);
 	}
-	
+
+	public static function getOrderCountPerType($merchant_id = 0, $type = array(), $date = '')
+	{
+		$criteria = new CDbCriteria();
+		$criteria->condition = "merchant_id=:merchant_id";
+		$criteria->params  = array(
+			':merchant_id' => intval($merchant_id),
+		);
+		$criteria->addInCondition('service_code', (array) $type);
+		$criteria->addNotInCondition('status', (array)'draft');
+		//$criteria->addSearchCondition('date_created', $date );
+		$criteria->addSearchCondition('delivery_date', $date);
+
+		$count = AR_ordernew::model()->count($criteria);
+		return intval($count);
+	}
+
 	public static function getOrderCountSchedule($merchant_id=0, $status=array() , $date = '')
 	{		
 		$criteria=new CDbCriteria();	    
@@ -389,8 +405,10 @@ class AOrders
 		$criteria->params  = array(
 		  ':merchant_id'=>intval($merchant_id),		  
 		);
-		$not_in_status = AttributesTools::initialStatus();		
-		$criteria->addNotInCondition('status', (array) array($not_in_status) );		
+		$not_in_status = AttributesTools::initialStatus();	
+		$not_in_service_code = "pos";
+		$criteria->addNotInCondition('status', (array) array($not_in_status) );
+		$criteria->addNotInCondition('service_code', (array) array($not_in_service_code));
 		
 		$count = AR_ordernew::model()->count($criteria); 
 		return intval($count);

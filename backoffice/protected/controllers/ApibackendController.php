@@ -1696,10 +1696,10 @@ HTML;
 		LEFT JOIN {{ordernew_meta}} b on  a.order_id=b.order_id 
 		LEFT JOIN {{client}} c on  a.client_id = c.client_id 
 		';
-		$criteria->condition = "a.merchant_id=:merchant_id AND meta_name=:meta_name ";
+		$criteria->condition = "a.merchant_id=:merchant_id";
 		$criteria->params  = array(
 		  ':merchant_id'=>intval($merchant_id),		  
-		  ':meta_name'=>'customer_name'
+		//   ':meta_name'=>'customer_name'
 		);
 		if(!empty($date_start) && !empty($date_end)){
 			$criteria->addBetweenCondition("DATE_FORMAT(a.date_created,'%Y-%m-%d')", $date_start , $date_end );
@@ -1878,21 +1878,27 @@ HTML;
 	    	$refund_status = AttributesTools::refundStatus();	
 	    	$orders = 0; $order_cancel = 0; $total=0;
 	    	
-	    	$not_in_status = AOrderSettings::getStatus(array('status_cancel_order','status_rejection'));
-	    	array_push($not_in_status,$initial_status);    		    	
-	    	$orders = AOrders::getOrdersTotal($merchant_id,array(),$not_in_status);
+			// $not_in_status = AOrderSettings::getStatus(array('status_cancel_order','status_rejection'));
+			// array_push($not_in_status,$initial_status);    		    	
+			// $orders = AOrders::getOrdersTotal($merchant_id,array(), $initial_status);
+			// $orders = AOrders::getAllOrderCount($merchant_id);
 	    	
-	    	$status_cancel = AOrderSettings::getStatus(array('status_cancel_order'));		    	    	
-		    $order_cancel = AOrders::getOrdersTotal($merchant_id,$status_cancel);
+	    	// $status_cancel = AOrderSettings::getStatus(array('status_cancel_order'));		    	    	
+		    // $order_cancel = AOrders::getOrdersTotal($merchant_id,$status_cancel);
+			// get take away
+		    $takeaway = AOrders::getOrderCountPerType($merchant_id,'pickup');
 		    
 		    $status_delivered = AOrderSettings::getStatus(array('status_delivered','status_completed'));
-						
 		    $total = AOrders::getOrderSummary($merchant_id,$status_delivered);
-		    $total_refund = AOrders::getTotalRefund($merchant_id,$refund_status);
+
+			$total_refund = AOrders::getTotalRefund($merchant_id,$refund_status);
+			
+			// get delivery
+			$deliveries = AOrders::getOrderCountPerType($merchant_id, 'delivery');
 	    	
 	    	$data = array(
-		     'orders'=>$orders,
-		     'order_cancel'=>$order_cancel,
+		     'orders'=> $takeaway,
+		     'order_cancel'=> $deliveries,
 		     'total'=>Price_Formatter::formatNumberNoSymbol($total),
 		     'total_refund'=>Price_Formatter::formatNumberNoSymbol($total_refund),
 		     'price_format'=>array(
