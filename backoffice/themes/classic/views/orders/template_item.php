@@ -233,18 +233,18 @@ id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModal" aria-hidd
       
       <h5 class="m-0 mt-2 mb-2"><?php echo t("Special Instructions")?></h5>      
       <div class="form-label-group">    
-        <textarea :value="something" @input="special_instructions = $event.target.value"  class="form-control form-control-text font13" 
+        <textarea v-model="special_instructions"  class="form-control form-control-text font13" 
               placeholder="<?php echo t("Add a note (extra cheese, no onions, etc.)")?>">
         </textarea>       
       </div>   
-      <!--
-      <h5 class="m-0 mt-2 mb-2"><?php //echo t("If sold out")?></h5>            
+      
+      <h5 class="m-0 mt-2 mb-2"><?php echo t("If sold out")?></h5>            
       <div class="form-label-group m-0 p-0 mb-3">  
 	   <select v-model="if_sold_out" class="form-control custom-select">		 
 	    <option v-for="(sold_label, sold_key) in sold_out_options" :value="sold_key" >{{sold_label}}</option>
 	   </select>
 	  </div>
-      -->
+      
       </div> <!--modal body-->
       
       <div class="modal-footer justify-content-start">

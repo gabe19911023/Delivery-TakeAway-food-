@@ -90,7 +90,7 @@ class Price_Formatter
 	
 	public static function formatNumber($value=0)
 	{				
-				$res = '';
+				
 		$formatted_number = number_format( (float) $value ,
 		   !empty(Price_Formatter::$number_format['decimals'])?Price_Formatter::$number_format['decimals']:0,
 		   Price_Formatter::$number_format['decimal_separator'],
@@ -98,11 +98,10 @@ class Price_Formatter
 		);
 		
 		if(Price_Formatter::$number_format['position']=="left" || self::$number_format['position']=="left_space"){
-			$res = Price_Formatter::$number_format['currency_symbol'].Price_Formatter::$number_format['spacer'].$formatted_number;
+			return Price_Formatter::$number_format['currency_symbol'].Price_Formatter::$number_format['spacer'].$formatted_number;
 		} else {
-			$res = $formatted_number.Price_Formatter::$number_format['spacer'].Price_Formatter::$number_format['currency_symbol'];
+			return $formatted_number.Price_Formatter::$number_format['spacer'].Price_Formatter::$number_format['currency_symbol'];
 		}
-		return $res;
 	}
 	
 	public static function formatNumberNoSymbol($value=0)

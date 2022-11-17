@@ -69,8 +69,8 @@ class AR_shipping_rate extends CActiveRecord
 		  'required','message'=> t( Helper_field_required ),'on'=>'fixed' ),
 
 		  array('merchant_service_fee', 'numerical', 'integerOnly' => false,		  
-		  // 'min'=>1,
-		  // 'tooSmall'=>t("Minimum value is 1"),
+		  'min'=>1,
+		  'tooSmall'=>t("Minimum value is 1"),
 		  'message'=>t(Helper_field_numeric),
 		   'on'=>'fixed'
 		  ),

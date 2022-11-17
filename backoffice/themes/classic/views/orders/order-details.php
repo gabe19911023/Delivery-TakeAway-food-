@@ -287,13 +287,13 @@ ref="refund"
           </template>
         </template>
         
-        <template v-if="modify_order">
-        <p class="m-0"><b><?php echo t("If sold out")?></b></p>
+        <!--<template v-if="modify_order">
+        <p class="m-0"><b><?php //echo t("If sold out")?></b></p>
         <p class="m-0 text-danger" v-if="sold_out_options[items.if_sold_out]">
         {{sold_out_options[items.if_sold_out]}}        
         </p>
         </template>
-                
+                -->
          </div> <!-- col -->        
          
          <div class="col-3 d-flex justify-content-start flex-column text-right">

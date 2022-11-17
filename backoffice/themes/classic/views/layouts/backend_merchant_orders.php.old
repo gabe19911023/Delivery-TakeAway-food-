@@ -72,10 +72,7 @@
  
  <div class="ssm-overlay ssm-toggle-nav"></div>
  <div id='canvasFrame' style="display:none;">
-     <canvas id='canvasPaper1' width='576' height='640'>
-         Your browser does not support Canvas!
-     </canvas>
-     <canvas id='canvasPaper2' width='576' height='640'>
+     <canvas id='canvasPaper' width='576' height='640'>
          Your browser does not support Canvas!
      </canvas>
  </div> 

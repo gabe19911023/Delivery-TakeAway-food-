@@ -144,7 +144,12 @@
 
 <?php if($checkout):?>
     <template v-if="cart_items.length>0">         
-    <button @click="placeOrder" class="btn btn-green w-100 pointer" :disabled="hasError" 
+    <!-- <button @click="placeOrder" class="btn btn-green w-100 pointer" :disabled="hasError" 
+    :class="{ disabled: hasPayment, 'loading': is_submit }"  >     	  
+    <span class="label"><?php echo t("Place Order")?></span>
+    <div class="m-auto circle-loader" data-loader="circle-side"></div>	  
+    </button> -->
+	<button @click="placeOrder" class="btn btn-green w-100 pointer" 
     :class="{ disabled: hasPayment, 'loading': is_submit }"  >     	  
     <span class="label"><?php echo t("Place Order")?></span>
     <div class="m-auto circle-loader" data-loader="circle-side"></div>	  
@@ -163,13 +168,13 @@
     </a>
 </template>   
 <?php endif;?>
-
+<!--
 <div v-cloak class="alert alert-warning m-0 mt-2" v-if="error.length>0">
     <p class="m-0" v-for="error_msg in error">
     {{ error_msg }}
     </p>
 </div>        
-
+-->
 <div v-cloak class="alert alert-warning m-0 mt-2" v-if="hasPayment">
 <p class="m-0">{{error_payment}}</p>
 </div>  

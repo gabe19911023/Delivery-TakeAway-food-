@@ -147,12 +147,19 @@ class CCheckout
 	public static function getTransactionData($cart_uuid='',$transaction_type='')
 	{
         $data = array();
-        
+       /*  echo $transaction_type;
+		echo "<br>"; */
 		if($transaction_type=="delivery"){
 		    $data = CCart::getAttributesAll($cart_uuid,array(
 		     'delivery_distance','delivery_distance_unit','shipping_rate_id',
 		     'whento_deliver','delivery_date','delivery_time','opt_contact_delivery','estimation','error'
 		    ));		
+			
+			/* echo $cart_uuid;
+			echo "<pre>";
+			print_r($data); die("fdgfdg"); */
+			
+			
 		} elseif ( $transaction_type=="pickup"){
 			$data = CCart::getAttributesAll($cart_uuid,array(		     
 		     'whento_deliver','delivery_date','delivery_time','opt_contact_delivery','estimation','error'
@@ -162,7 +169,9 @@ class CCheckout
 		     'whento_deliver','delivery_date','delivery_time','opt_contact_delivery','estimation','error'
 		    ));		
 		}
-
+		/* echo $cart_uuid;
+		echo "<pre>";
+		print_r($data); die; */
 		if($data){ 		
 		   
 		   $whento_deliver = isset($data['whento_deliver'])?$data['whento_deliver']:'';
@@ -284,8 +293,8 @@ class CCheckout
 			$start_date = $delivery_date." ".$_delivery_time['start_time'];
 			$end_date = $delivery_date." ".$_delivery_time['end_time'];
 			$delivery_datetime = Date_Formatter::dateTime($start_date,"ccc,LLL dd, hh:mm a");
-   	  	 	$delivery_datetime.=" - ";
-   	  	 	$delivery_datetime.= Date_Formatter::dateTime($end_date,"hh:mm a");
+   	  	 	//$delivery_datetime.=" - ";
+   	  	 	//$delivery_datetime.= Date_Formatter::dateTime($end_date,"hh:mm a");
 		}
 		return $delivery_datetime;
 	}

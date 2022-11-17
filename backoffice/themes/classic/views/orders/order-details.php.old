@@ -67,9 +67,7 @@ ref="refund"
 
       <div class="col" >
         <div class="d-flex justify-content-end">
-
-      <div class="flex-col mr-3"><button class="btn btn-black normal print-receipt"><?php echo t("Print")?></button></div>
-    <!--  <div class="flex-col mr-3"><button class="btn btn-black normal" @click="printOrder" ><?php //echo t("Print")?></button></div>--->
+          <div class="flex-col mr-3"><button class="btn btn-black normal" @click="printOrder" ><?php echo t("Print")?></button></div>
           <div class="flex-col">
                             
            <div class="dropdown dropleft">

@@ -84,12 +84,13 @@
       </div> <!--modal body-->
       
       <div class="modal-footer justify-content-start">
-           
+	  <span class="btn btn-green w-100 savtimeonchecout"><?php echo t("Save")?></span>
+      <!--    
       <button class="btn btn-green w-100" @click="validate" :class="{ loading: is_loading }" >
           <span class="label"><?php echo t("Save")?></span>
           <div class="m-auto circle-loader" data-loader="circle-side"></div>
       </button>
-      
+      -->
       </div> <!--footer-->
     </div> <!--content-->
   </div> <!--dialog-->

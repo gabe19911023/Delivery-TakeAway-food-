@@ -374,7 +374,7 @@ class ApiController extends SiteCommon
 		$cart_uuid = isset($this->data['cart_uuid'])?$this->data['cart_uuid']:'';		
 		$transaction_type = isset($this->data['transaction_type'])?$this->data['transaction_type']:'';
 		
-		if(!empty($cart_uuid) && !empty($transaction_type)){
+		if(!empty($cart_uuid) && !empty($transaction_type) || 1 == 1){
 		   CCart::savedAttributes($cart_uuid,Yii::app()->params->local_transtype,$transaction_type);	
 		}
 		
@@ -1874,10 +1874,18 @@ class ApiController extends SiteCommon
 			}
 						
 			$datetime_to = date("Y-m-d g:i:s a",strtotime("$date $time_now"));
+			// echo'<pre>';
+			// print_r($date);echo'<br>';
+			// print_r($time_now);echo'<br>';
+			// print_r($datetime_to);echo'<br>';
+			// print_r($choosen_delivery);echo'<br>';
+			// echo'</pre>';
+			// die();
+			
 			CMerchantListingV1::checkCurrentTime( date("Y-m-d g:i:s a") , $datetime_to);
 			
 			$resp = CMerchantListingV1::checkStoreOpen($merchant_id,$date,$time_now);			
-			if($resp['merchant_open_status']<=0){
+			if($resp['merchant_open_status']<0){
 				$this->msg[] = t("This store is close right now, but you can schedulean order later.");
 				$this->responseJson();
 			}					
@@ -2802,6 +2810,7 @@ class ApiController extends SiteCommon
 			}else{
 				$opening_hours = CMerchantListingV1::openHours($merchant_id);
 			}
+			
 			$delivery_date = ''; $delivery_time='';
 
 			if($atts = CCart::getAttributesAll($cart_uuid,array('delivery_date','delivery_time'))){				
@@ -2815,7 +2824,8 @@ class ApiController extends SiteCommon
 		       'whento_deliver'=>$whento_deliver,
 		       'delivery_date'=>$delivery_date,
 		       'delivery_time'=>$delivery_time,
-		       'opening_hours'=>$opening_hours,		       
+		       'opening_hours'=>$opening_hours,	
+				'current1'=> date("H:i A"),			   
 		    );
 		} catch (Exception $e) {
 		    $this->msg[] = t($e->getMessage());		    		    
@@ -2872,6 +2882,7 @@ class ApiController extends SiteCommon
 			  'delivery_date'=>$delivery_date,
 			  'delivery_time'=>$delivery_time,
 			  'delivery_datetime'=>$delivery_datetime,			  
+			  'cart_uuid'=>$cart_uuid,		  
 			);						
 		} catch (Exception $e) {
 		    $this->msg = t($e->getMessage());		    		    

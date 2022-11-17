@@ -577,7 +577,11 @@
     }
 
 }
-    
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px){
+a.btn {
+    padding: 10px 8px!important;
+} 
+} 
 @media (min-width: 1200px) {
     /* .top-logo{
         border: 1px solid green;
@@ -586,3 +590,6 @@
     
 @media (min-width: 1400px) {
 }
+
+
+

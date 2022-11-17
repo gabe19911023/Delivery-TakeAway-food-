@@ -305,30 +305,20 @@ ref="customer_entry"
                   
          
       </div>
-      <!-- modal body -->
-
+      <!-- modal body --> 
       
-      <div class="modal-footer border-0">
-          <!--<button type="button" @click="submitOrder" class="btn btn-green pl-4 pr-4 print-receipt" :class="{ loading: create_payment_loading }"
-           :disabled="!hasValidPayment"
-           >--->
-
-          <button type="button" @click="submitOrder" class="btn btn-green pl-4 pr-4" :class="{ loading: create_payment_loading }"
-                  :disabled="!hasValidPayment"
-          >
-          <span><?php echo t("Preview")?></span>
-
-          <div class="m-auto circle-loader" data-loader="circle-side"></div>
-
+      <div class="modal-footer border-0">            
+        <button type="button" @click="submitOrder" class="btn btn-green pl-4 pr-4" :class="{ loading: create_payment_loading }"         
+         :disabled="!hasValidPayment"
+         >
+          <span><?php echo t("Submit")?></span>
+          <div class="m-auto circle-loader" data-loader="circle-side"></div> 
         </button>
       </div>
 
     </div>
   </div>
-
 </div>  
-<!-- modal -->
-
-
+<!-- modal -->      
 
 </script>

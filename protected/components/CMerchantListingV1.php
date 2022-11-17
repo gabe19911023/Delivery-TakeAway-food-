@@ -162,7 +162,7 @@ class CMerchantListingV1
 		return false;
 	}
 
-	public static function openHours($merchant_id='', $interval="20 mins")
+	public static function openHours($merchant_id='', $interval="10 mins")
 	{
 		$today = date('Y-m-d'); $order_by_days = ''; $daylist = array();
 		$yesterday = date('Y-m-d', strtotime($today. " -1 days"));	
@@ -185,16 +185,20 @@ class CMerchantListingV1
 		WHERE merchant_id=".q($merchant_id)."
 		AND status='open'			
 		ORDER BY FIELD(day, $order_by_days);	
-		";					
+		";		
+		
 		if($res = Yii::app()->db->createCommand($stmt)->queryAll()){			
 			$data = array(); $times = array();
+			//$newarr = [];
+			
 			foreach ($res as $val) {	
 								
 				$start_time = date("Hi",strtotime($val['start_time']));		
 				$item_start_time = $val['start_time'];
 				
 				$date = isset($daylist[$val['day']])?$daylist[$val['day']]:'';				
-				$name = Date_Formatter::date($date,"EEE, MMM dd");
+				//$name = Date_Formatter::date($date,"EEE, MMM dd");
+				$name = date('jS M (l)', strtotime($date));
 							
 				if($today==$date){
 					$name = t("Today").", $name";
@@ -211,7 +215,42 @@ class CMerchantListingV1
 				$end_time = $val['end_time'];						
 				$end_time = date("H:i",strtotime($end_time." -".intval($interval)." minutes"));
 				
-				$time = self::createTimeRange($item_start_time,$end_time,$interval);				
+				
+				$ampm = date("A");
+				
+				
+				$geturrenttime1 = date("H:i");
+				$strtotime_geturrenttime = strtotime($geturrenttime1);
+				$strtotime_time = strtotime($val['start_time']);
+				if($strtotime_geturrenttime >= $strtotime_time)
+				{
+					$start_timen = date("H:i");
+					$interval1="50 mins";
+				}else{
+					$start_timen = $val['start_time'];
+					$interval1="50 mins";
+				}
+				$exportcurrent = explode(":",$start_timen);
+				
+				/* $geturrenttime = date("H:i");
+				$exportcurrent = explode(":",$start_timen); */
+				
+				$exportsecond = $exportcurrent[1];
+				if($exportcurrent[1] == "00")
+				{
+					$exportsecond = "01";
+				}
+				$number = ceil($exportsecond / 10) * 10;
+				$newtime = $exportcurrent[0]. ':' .$number;
+				
+				
+				$item_start_time1 = date("H:i",strtotime($newtime." +".intval($interval1)." minutes"));
+				//print_r($item_start_time1); die;
+				$time = self::createTimeRange($item_start_time1,$end_time,$interval);		
+				
+				
+				//$newarr = $newarr1;
+				//print_r($time); die;				
 				$times[$date][]=$time;
 								
 				if(is_array($time) && count($time)>=1){
@@ -221,10 +260,11 @@ class CMerchantListingV1
 				  'data'=>$val,				  
 				);
 				}
+				break;
 			} //endfor				
 			
 			$_times = array();
-			if(is_array($times) && count($times)>=1){
+			if(is_array($times) && count($times)>=1 && isset($data[$today])){
 				foreach ($times as $key=>$item) {				
 					$merge = array();
 					for ($x = 0; $x <= count($item)-1; $x++) {				
@@ -232,7 +272,23 @@ class CMerchantListingV1
 					}
 					$_times[$key] = $merge;
 				}			
+			}else{
+				$data = array();			
+				$namee = date('jS M (l)', strtotime($today));
+				$namee = t("Today").", $namee";
+				$data[$today] = array(
+				  'name'=>$namee,
+				  'value'=>$today,				  
+				  'data'=>array(),				  
+				);
 			}
+			
+			// echo'<pre>';
+			// print_r($data);
+			// print_r($_times);
+			// echo'</pre>';
+			// die;
+			
 			
 			return array(
 			  'dates'=>$data,
@@ -242,7 +298,7 @@ class CMerchantListingV1
 		return false;
 	}
 
-	public static function pickupOpenHours($merchant_id='', $interval="20 mins")
+	public static function pickupOpenHours($merchant_id='', $interval="10 mins")
 	{
 		$today = date('Y-m-d'); $order_by_days = ''; $daylist = array();
 		$yesterday = date('Y-m-d', strtotime($today. " -1 days"));	
@@ -266,7 +322,8 @@ class CMerchantListingV1
 		AND status='open'			
 		ORDER BY FIELD(day, $order_by_days);	
 		";					
-		if($res = Yii::app()->db->createCommand($stmt)->queryAll()){			
+		if($res = Yii::app()->db->createCommand($stmt)->queryAll()){
+			
 			$data = array(); $times = array();
 			foreach ($res as $val) {	
 								
@@ -274,7 +331,8 @@ class CMerchantListingV1
 				$item_start_time = $val['start_time'];
 				
 				$date = isset($daylist[$val['day']])?$daylist[$val['day']]:'';				
-				$name = Date_Formatter::date($date,"EEE, MMM dd");
+				//$name = Date_Formatter::date($date,"EEE, MMM dd");
+				$name = date('jS M (l)', strtotime($date));
 							
 				if($today==$date){
 					$name = t("Today").", $name";
@@ -291,7 +349,37 @@ class CMerchantListingV1
 				$end_time = $val['end_time'];						
 				$end_time = date("H:i",strtotime($end_time." -".intval($interval)." minutes"));
 				
-				$time = self::createTimeRange($item_start_time,$end_time,$interval);				
+				
+				$ampm = date("A");
+				
+				$geturrenttime1 = date("H:i");
+				$strtotime_geturrenttime = strtotime($geturrenttime1);
+				$strtotime_time = strtotime($val['start_time']);
+				if($strtotime_geturrenttime >= $strtotime_time)
+				{
+					$start_timen = date("H:i");
+					$interval1="20 mins";
+				}else{
+					$start_timen = $val['start_time'];
+					$interval1="20 mins";
+				}
+				
+				$exportcurrent = explode(":",$start_timen);
+				
+				$exportsecond = $exportcurrent[1];
+				if($exportcurrent[1] == "00")
+				{
+					$exportsecond = "01";
+				}
+				$number = ceil($exportsecond / 10) * 10;
+				$newtime = $exportcurrent[0]. ':' .$number;
+				
+				
+				$item_start_time1 = date("H:i",strtotime($newtime." +".intval($interval1)." minutes"));
+				
+				
+				
+				$time = self::createTimeRange($item_start_time1,$end_time,$interval);				
 				$times[$date][]=$time;
 								
 				if(is_array($time) && count($time)>=1){
@@ -301,10 +389,11 @@ class CMerchantListingV1
 				  'data'=>$val,				  
 				);
 				}
-			} //endfor				
+				break;
+			} //endfor	
 			
 			$_times = array();
-			if(is_array($times) && count($times)>=1){
+			if(is_array($times) && count($times)>=1 && isset($data[$today])){
 				foreach ($times as $key=>$item) {				
 					$merge = array();
 					for ($x = 0; $x <= count($item)-1; $x++) {				
@@ -312,6 +401,16 @@ class CMerchantListingV1
 					}
 					$_times[$key] = $merge;
 				}			
+			}else{
+				$_times = array();
+				$data = array();			
+				$namee = date('jS M (l)', strtotime($today));
+				$namee = t("Today").", $namee";
+				$data[$today] = array(
+				  'name'=>$namee,
+				  'value'=>$today,				  
+				  'data'=>array(),				  
+				);
 			}
 			
 			return array(
@@ -334,11 +433,13 @@ class CMerchantListingV1
 	
 	    $times = array(); 	    
 	    while ($startTime < $endTime) { 	 
-	    	$start_time =  date("H:i", $startTime);   		    		    		    	
+	    	$start_time =  date("H:i A", $startTime);   		    		    		    	
 	    	$startEnd  += $diff; 
 	    	$start_end =  date("H:i", $startEnd);  
-	        	        
-	        $pretty_time = Date_Formatter::Time($startTime,"hh:mm a") . " - " . Date_Formatter::Time($startEnd,"hh:mm a"); 
+			
+	        	  //print_r($start_time); die;      
+	        //$pretty_time = Date_Formatter::Time($startTime,"hh:mm a") . " - " . Date_Formatter::Time($startEnd,"hh:mm a"); 
+	        $pretty_time = Date_Formatter::Time($startTime,"hh:mm A"); 
 	        
 	        $times[] = array(
 	          'start_time'=>date($returnTimeFormat, $startTime),
@@ -346,6 +447,7 @@ class CMerchantListingV1
 	          'pretty_time'=>$pretty_time
 	        );
 	        $startTime += $diff; 
+			//break;
 	    } 
 	    
 	    $start_time =  date("H:i", $startTime);  	       
