@@ -753,7 +753,7 @@ class ApibackendController extends CommonServices
 							  'subcat_id'=>$subcat_id,
 							  'sub_item_id'=>isset($sub_items_val['sub_item_id'])?(integer)$sub_items_val['sub_item_id']:0,							  
 							  'qty'=>isset($sub_items_val['qty'])?(integer)$sub_items_val['qty']:0,
-							  'price'=>isset($sub_items_val['price'])?(integer)$sub_items_val['price']:0,
+							  'price'=>isset($sub_items_val['price'])?floatval($sub_items_val['price']):0,
 							  'multi_option'=>$multi_option,
 							);
 						}
