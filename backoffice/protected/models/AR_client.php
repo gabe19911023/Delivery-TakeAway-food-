@@ -47,23 +47,23 @@ class AR_client extends CActiveRecord
 	public function rules()
 	{
 		return array(
-		  array('first_name,last_name,email_address,status', 
+		  array('first_name,last_name,status', 
 		  'required','message'=> t( Helper_field_required ) ),
 		  
 		  array('first_name,last_name,email_address,contact_phone', 'filter','filter'=>array($obj=new CHtmlPurifier(),'purify')), 
 		  
 		  array('phone_prefix,contact_phone,password,cpassword,npassword,image','safe'),
 		  
-		  array('email_address', 'email', 'message'=> CommonUtility::t(Helper_field_email) ),
+		//   array('email_address', 'email', 'message'=> CommonUtility::t(Helper_field_email) ),
 		  
-		  array('contact_phone','length', 'min'=>8, 'max'=>15,
-               'tooShort'=>t("{attribute} number is too short (minimum is 8 characters).")               
-             ),
+		//   array('contact_phone','length', 'min'=>8, 'max'=>15,
+        //        'tooShort'=>t("{attribute} number is too short (minimum is 8 characters).")               
+        //      ),
              
           //array('email_address,contact_phone','unique','message'=>t(Helper_field_unique)),
-		  array('email_address,contact_phone','ext.UniqueAttributesValidator','with'=>'merchant_id',
-		   'message'=>t(Helper_field_unique)
-		  ),            
+		//   array('email_address,contact_phone','ext.UniqueAttributesValidator','with'=>'merchant_id',
+		//    'message'=>t(Helper_field_unique)
+		//   ),            
           
           array('npassword, cpassword', 'length', 'min'=>4, 'max'=>40,
               'tooShort'=>t("{attribute} number is too short (minimum is 4 characters).")  

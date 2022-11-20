@@ -1191,7 +1191,7 @@
             },
             playAlert(){    				
                 this.player = new Howl({
-                  src: ['../assets/sound/notify.wav', '../assets/sound/notify.wav' ],
+                  src: ['../assets/sound/notify.mp3', '../assets/sound/notify.org' ],
                   html5: true,			  
                 });
                 this.player.play();
@@ -4153,7 +4153,8 @@
                  });
                 
                  ajax_request[timenow].done( data => {	 	    		 	    
-                     if ( data.code==1){		 	    		
+                     if ( data.code==1){	
+                        this.special_instructions = '';	 	    		
                          $( this.$refs.modal_item_details ).modal('hide');
                          this.$emit('refreshOrder', this.order_uuid);	 	    			 	    		
                          notify(data.msg,"success");
@@ -5383,6 +5384,13 @@
                       $( this.$refs.orders_completed ).append('<div class="badge-pill pull-right badge-notification bg-completed">'+this.data.completed_today+'</div>');		 	 
                       $( this.$refs.orders_scheduled ).append('<div class="badge-pill pull-right badge-notification bg-scheduled">'+this.data.scheduled+'</div>');
                       $( this.$refs.orders_history ).append('<div class="badge-pill pull-right badge-notification bg-history">'+this.data.all_orders+'</div>');
+
+                        var shouldPlayAlertSound = this.data.not_viewed>0?true:false;
+                        var notif = new Audio('../assets/sound/notify.mp3');
+                        if (shouldPlayAlertSound) {
+                            notif.play();
+                        }
+
                   }
              }).catch(error => {	
                 //
@@ -5570,7 +5578,7 @@
                     },
                     serverSide: true,
                     processing : true,
-                    pageLength : parseInt(this.page_limit),     
+                    pageLength : (this.actions == 'orderHistory') ? 30:parseInt(this.page_limit),     
                     destroy: true,
                     lengthChange : false,
                     bFilter : this.settings.filter,
@@ -8532,7 +8540,7 @@
         },
          computed: {
             hasData(){		
-                if(empty(this.first_name) || empty(this.last_name) || empty(this.email_address) || empty(this.contact_phone) ){
+                if(empty(this.first_name) || empty(this.last_name) ){
                     return false;
                 }
                 return true;
@@ -8600,24 +8608,7 @@
                   </div>
                 </div> <!-- col -->
                 
-              </div><!-- row -->	      
-              
-               <div class="row">
-                <div class="col">
-                   <div class="form-label-group">
-                    <input v-model="email_address" class="form-control form-control-text" placeholder="" id="email_address" type="text" maxlength="200">
-                    <label for="email_address" class="required">{{label.emaiL_address}}</label>
-                  </div>
-                </div> <!-- col -->
-                
-                <div class="col">
-                   <div class="form-label-group">
-                    <input v-model="contact_phone" class="form-control form-control-text" placeholder="" id="contact_phone" type="text" maxlength="20">
-                    <label for="contact_phone" class="required">{{label.contact_phone}}</label>
-                  </div>
-                </div> <!-- col -->
-                
-              </div><!-- row -->	      
+              </div><!-- row -->
               
               </form>
               

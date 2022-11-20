@@ -154,8 +154,8 @@ class CMerchantMenu
 				  'item_id'=>$val['item_id'],
 				  'item_uuid'=>$val['item_token'],
 				  'slug'=>$val['slug'],
-				  'item_name'=>CHtml::decode($val['item_name']),
-				  'item_description'=>CommonUtility::formatShortText($val['item_short_description'],130),
+				  'item_name'=>CHtml::decode(htmlspecialchars_decode($val['item_name'])),
+				  'item_description'=>CommonUtility::formatShortText(htmlspecialchars_decode($val['item_short_description']),130),
 				  'url_image'=>CMedia::getImage($val['photo'],$val['path'],Yii::app()->params->size_image
 				  ,CommonUtility::getPlaceholderPhoto('item')),
 				  'price'=>$price,
@@ -278,8 +278,8 @@ class CMerchantMenu
 			  'item_id'=>$item['item_id'],
 			  'item_token'=>$item['item_token'],
 			  'cat_id'=>$cat_id,
-			  'item_name'=>Yii::app()->input->xssClean($item['item_name']),
-			  'item_description'=>Yii::app()->input->xssClean($item['item_description']),			  
+			  'item_name'=>Yii::app()->input->xssClean(htmlspecialchars_decode($item['item_name'])),
+			  'item_description'=>Yii::app()->input->xssClean(htmlspecialchars_decode($item['item_description'])), 
 			  'url_image'=>CMedia::getImage($item['photo'],$item['path'],"@2x",
 				CommonUtility::getPlaceholderPhoto('item')),
 			  'price'=>$price,
@@ -332,8 +332,8 @@ class CMerchantMenu
 		   	    $sub_items = !empty($val['sub_items'])? explode(",",$val['sub_items']) : '';		   	    	   		 
 		   		$data[$val['item_size_id']][$val['subcat_id']] = array(		   		
 		   		  'subcat_id'=>$val['subcat_id'],
-		   		  'subcategory_name'=>Yii::app()->input->xssClean($val['subcategory_name']),
-		   		  'subcategory_description'=>Yii::app()->input->xssClean($val['subcategory_description']),
+		   		  'subcategory_name'=>Yii::app()->input->xssClean(htmlspecialchars_decode($val['subcategory_name'])),
+		   		  'subcategory_description'=>Yii::app()->input->xssClean(htmlspecialchars_decode($val['subcategory_description'])),
 		   		  'multi_option'=>$val['multi_option'],
 		   		  'multi_option_value'=>$val['multi_option_value'],
 		   		  'require_addon'=>$val['require_addon'],
@@ -378,8 +378,8 @@ class CMerchantMenu
 				$sub_item_id = (integer) $val['sub_item_id'];
 				$data[$sub_item_id] = array(
 				  'sub_item_id'=>$sub_item_id,
-				  'sub_item_name'=>Yii::app()->input->xssClean($val['sub_item_name']),
-				  'item_description'=>Yii::app()->input->xssClean($val['item_description']),
+				  'sub_item_name'=>Yii::app()->input->xssClean(htmlspecialchars_decode($val['sub_item_name'])),
+				  'item_description'=>Yii::app()->input->xssClean(htmlspecialchars_decode($val['item_description'])),
 				  'price'=>(float)$val['price'],
 				  'pretty_price'=>Price_Formatter::formatNumber($val['price']),				  
 				  'url_image'=>CMedia::getImage($val['photo'],$val['path'],Yii::app()->params->size_image,
@@ -622,8 +622,8 @@ class CMerchantMenu
 				$data[$val['item_id']] = array(  
 				  'item_id'=>$val['item_id'],
 				  'item_uuid'=>$val['item_token'],
-				  'item_name'=>stripslashes($val['item_name']),
-				  'item_description'=>CommonUtility::formatShortText($val['item_short_description'],130),
+				  'item_name'=>stripslashes(htmlspecialchars_decode($val['item_name'])),
+				  'item_description'=>CommonUtility::formatShortText(htmlspecialchars_decode($val['item_short_description']),130),
 				  'url_image'=>CMedia::getImage($val['photo'],$val['path'],Yii::app()->params->size_image
 				  ,CommonUtility::getPlaceholderPhoto('item')),
 				  'category_id'=>$cat_id>0?array($cat_id):$group_category,
@@ -745,8 +745,8 @@ class CMerchantMenu
 				  'item_id'=>$val['item_id'],
 				  'item_uuid'=>$val['item_token'],
 				  'slug'=>stripslashes($val['slug']),
-				  'item_name'=>stripslashes($val['item_name']),
-				  'item_description'=>CommonUtility::formatShortText($val['item_short_description'],130),
+				  'item_name'=>stripslashes(htmlspecialchars_decode($val['item_name'])),
+				  'item_description'=>CommonUtility::formatShortText(htmlspecialchars_decode($val['item_short_description']),130),
 				  'url_image'=>CMedia::getImage($val['photo'],$val['path'],Yii::app()->params->size_image
 				  ,CommonUtility::getPlaceholderPhoto('item')),		
 				  'category_id'=>$group_category,		  
@@ -851,8 +851,8 @@ class CMerchantMenu
 				  'item_id'=>$val['item_id'],
 				  'item_uuid'=>$val['item_token'],
 				  'slug'=>$val['slug'],
-				  'item_name'=>CHtml::decode($val['item_name']),
-				  'item_description'=>CommonUtility::formatShortText($val['item_short_description'],130),
+				  'item_name'=>CHtml::decode(htmlspecialchars_decode($val['item_name'])),
+				  'item_description'=>CommonUtility::formatShortText(htmlspecialchars_decode($val['item_short_description']),130),
 				  'url_image'=>CMedia::getImage($val['photo'],$val['path'],Yii::app()->params->size_image
 				  ,CommonUtility::getPlaceholderPhoto('item')),
 				  'price'=>$price,				  

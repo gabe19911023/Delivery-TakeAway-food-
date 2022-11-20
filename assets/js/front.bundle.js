@@ -6277,7 +6277,8 @@
                  });
                 
                  ajax_request[timenow].done( data => {	 	    		 	    
-                     if ( data.code==1){		 	    		
+                     if ( data.code==1){
+                        this.special_instructions = '';		 	    		
                          setCookie('cart_uuid',data.details.cart_uuid,30);
                          $('#itemModal').modal('hide');
                         if ((typeof vue_cart !== "undefined") && ( vue_cart !== null)) {
@@ -14080,7 +14081,8 @@
                  });
                 
                  ajax_request[timenow].done( data => {	 	    		 	    
-                     if ( data.code==1){		 	    		
+                     if ( data.code==1){	
+                        this.special_instructions = '';	 	    		
                          $( this.$refs.modal_item_details ).modal('hide');
                          vue_cart.loadcart();
                      }	 	    

@@ -33,10 +33,10 @@ class ApiController extends CommonApi
 	
 	public function actionsaveOrderTab()
 	{				
-		if(DEMO_MODE){
-		  $this->msg[] = t("Modification not available in demo");
-		  $this->responseJson();
-        }
+		// if(DEMO_MODE){
+		//   $this->msg[] = t("Modification not available in demo");
+		//   $this->responseJson();
+        // }
         
 		$group_name = isset($this->data['group_name'])?$this->data['group_name']:'';
 		$status = isset($this->data['status'])?$this->data['status']:'';		
@@ -67,10 +67,10 @@ class ApiController extends CommonApi
 	
 	public function actionsaveOrderButtons()
 	{		
-		if(DEMO_MODE){
-		  $this->msg[] = t("Modification not available in demo");
-		  $this->responseJson();
-        }
+		// if(DEMO_MODE){
+		//   $this->msg[] = t("Modification not available in demo");
+		//   $this->responseJson();
+        // }
 		$group_name = isset($this->data['group_name'])?$this->data['group_name']:'';
 		$button_name = isset($this->data['button_name'])?$this->data['button_name']:'';
 		$status = isset($this->data['status'])?$this->data['status']:'';	

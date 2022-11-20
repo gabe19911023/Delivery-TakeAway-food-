@@ -33,7 +33,7 @@ class AOrders
 	    ) as min_diff
 		
 		";		
-		$criteria->order = "order_id ASC";
+		$criteria->order = "order_id DESC";
 		
 		if($schedule){
 			$status_scheduled = (array) $status;				
@@ -366,7 +366,7 @@ class AOrders
 		$count = AR_ordernew::model()->count($criteria); 
 		return intval($count);
 	}
-
+ 
 	public static function getOrderCountPerType($merchant_id = 0, $type = array(), $date = '')
 	{
 		$criteria = new CDbCriteria();

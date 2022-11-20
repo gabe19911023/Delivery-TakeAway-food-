@@ -20,7 +20,7 @@ class OrdersController extends Commonmerchant
 	
 	public function actionNew()
 	{
-		$this->pageTitle = t("New Orders");		
+		$this->pageTitle = t("Orders");		
 		CommonUtility::setMenuActive('.merchant_orders','.merchant_all_order');		
 			
 		$group_name = 'new_order';
@@ -32,7 +32,7 @@ class OrdersController extends Commonmerchant
 		  'status'=>$status,
 		  'show_critical'=>true,
 		  'heading'=>t("Orders as of today {{date}}",array('{{date}}'=> Date_Formatter::date(date("c"),"EEEE, MMM dd yyyy") )),
-		  'title'=>t("New Orders"),
+		  'title'=>t("Orders"),
 		  'group_name'=>$group_name,
 		  'manual_status'=>$manual_status,
 		  'modify_order'=>true,

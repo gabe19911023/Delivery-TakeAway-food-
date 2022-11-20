@@ -80,4 +80,4 @@ page_limit = "<?php echo Yii::app()->params->list_limit?>"
 </div> <!--body-->
 </div> <!--card-->
 
-<?php $this->renderPartial("/orders/template-filter");?>
+<?php $this->renderPartial("/orders/template-filter");?> 

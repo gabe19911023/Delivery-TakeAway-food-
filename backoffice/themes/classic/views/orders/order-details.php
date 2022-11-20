@@ -51,15 +51,20 @@ ref="refund"
   
    <div class="row align-items-start">
       <div class="col" >
-     
-     <button v-for="button in buttons" :class="button.class_name" 
+     <template v-for="button in buttons">
+     <button v-if="order_info.status=='accepted'&&order_info.service_code=='delivery'&&button.button_name=='Ready for Delivery' || 
+     order_info.status=='delivery on its way'&&order_info.service_code=='delivery'&&button.button_name=='Delivered' ||  
+     order_info.status=='delivery on its way'&&order_info.service_code=='delivery'&&button.button_name=='Delivery Failed' ||  
+     order_info.status=='accepted'&&order_info.service_code=='takeaway'&&button.button_name=='Ready for Pickup' || 
+     order_info.status=='new'&&button.button_name=='Accept' || order_info.status=='new'&&button.button_name=='Decline'"  
+        :class="button.class_name" 
         @click="doUpdateOrderStatus(button.uuid,order_info.order_uuid,button.do_actions)"        
         class="btn normal mr-2 font13  mb-3 mb-xl-0">
            <span>{{button.button_name}}</span>
            <div class="m-auto circle-loader" data-loader="circle-side"></div> 
       </button>                    
-      
-      <button class="btn-blue btn normal mr-2 font13 mb-3 mb-xl-0" @click="delayOrder"><?php echo t("Delay Order")?></button>   
+      </template>
+      <button v-if="order_info.status!='delivered' || order_info.status!='complete'" class="btn-blue btn normal mr-2 font13 mb-3 mb-xl-0" @click="delayOrder"><?php echo t("Delay Order")?></button>   
 
       <button v-if="manual_status=='1'" class="btn btn-yellow normal mr-2" @click="manualStatusList"><?php echo t("Manual Status")?></button>   
                        

@@ -1663,7 +1663,7 @@ HTML;
 		$draw = isset($this->data['draw'])?$this->data['draw']:0;	
 		$search = isset($this->data['search'])?$this->data['search']['value']:'';	
 		$columns = isset($this->data['columns'])?$this->data['columns']:'';
-		$order = (isset($this->data['order']) && isset($this->data['order'][0]))?$this->data['order'][0]:'';	
+		$order = isset($this->data['order'])?  isset($this->data['order'][0])?$this->data['order'][0]:''   :'';	
 		$filter = isset($this->data['filter'])?$this->data['filter']:'';
 		
 		$date_start = isset($this->data['date_start'])?$this->data['date_start']:'';
@@ -1683,7 +1683,6 @@ HTML;
 		$criteria->alias = "a";
 		$criteria->select = "a.order_id, a.client_id, a.status, a.order_uuid , 
 		a.payment_code, a.service_code,a.total, a.date_created,
-		b.meta_value as customer_name, 
 		(
 		   select sum(qty)
 		   from {{ordernew_item}}
@@ -1693,13 +1692,11 @@ HTML;
 		c.avatar as logo, c.path
 		";
 		$criteria->join='
-		LEFT JOIN {{ordernew_meta}} b on  a.order_id=b.order_id 
 		LEFT JOIN {{client}} c on  a.client_id = c.client_id 
 		';
 		$criteria->condition = "a.merchant_id=:merchant_id";
 		$criteria->params  = array(
-		  ':merchant_id'=>intval($merchant_id),		  
-		//   ':meta_name'=>'customer_name'
+		  ':merchant_id'=>intval($merchant_id)
 		);
 		if(!empty($date_start) && !empty($date_end)){
 			$criteria->addBetweenCondition("DATE_FORMAT(a.date_created,'%Y-%m-%d')", $date_start , $date_end );
@@ -1731,11 +1728,21 @@ HTML;
         $pages->setCurrentPage( intval($page) );        
         $pages->pageSize = intval($length);
         $pages->applyLimit($criteria);        
-                
+
         $models = AR_ordernew::model()->findAll($criteria);
                 
         if($models){
          	foreach ($models as $item) {         		
+
+			// get customer name
+			$customer_name = '';
+			$criteriam = new CDbCriteria;				
+			$criteriam->addInCondition('meta_name', array('customer_name'));
+			$criteriam->addInCondition('order_id', array($item->order_id));
+			$modelm = AR_ordernew_meta::model()->find($criteriam);
+			if($modelm){
+				$customer_name = $modelm->meta_value;
+			}
 
          	$item->total_items = intval($item->total_items);
          	$item->total_items = t("{{total_items}} items",array(
@@ -1798,7 +1805,7 @@ HTML;
          		$data[]=array(
          		  'logo'=>'<img class="img-60 rounded-circle" src="'.$avatar.'">',
         		  'order_id'=>$item->order_id,
-        		  'client_id'=>$item->customer_name,
+        		  'client_id'=>$customer_name,
         		  'status'=>$information,
         		  'order_uuid'=>$buttons
         		);
