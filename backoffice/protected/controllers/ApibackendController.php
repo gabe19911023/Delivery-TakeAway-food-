@@ -25,7 +25,8 @@ class ApibackendController extends CommonServices
 		$order_status = isset($this->data['order_status'])?$this->data['order_status']:'';
 		$schedule = isset($this->data['schedule'])?$this->data['schedule']:'';
 		$schedule = $schedule==1?true:false;
-		$filter = isset($this->data['filter'])?$this->data['filter']:'';		
+		$filter = isset($this->data['filter'])?$this->data['filter']:[];
+		$filter['order_type'] = array('delivery','pickup');
 							
 		try {			 
 			$data = AOrders::getOrderAll($merchant_id, $order_status, $schedule , date("Y-m-d") , date("Y-m-d g:i:s a") , $filter );				

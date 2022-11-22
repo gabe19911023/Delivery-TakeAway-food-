@@ -155,7 +155,7 @@ class CMerchantMenu
 				  'item_uuid'=>$val['item_token'],
 				  'slug'=>$val['slug'],
 				  'item_name'=>CHtml::decode(htmlspecialchars_decode($val['item_name'])),
-				  'item_description'=>CommonUtility::formatShortText(htmlspecialchars_decode($val['item_short_description']),130),
+				  'item_description'=>htmlspecialchars_decode(CommonUtility::formatShortText($val['item_short_description'],130)),
 				  'url_image'=>CMedia::getImage($val['photo'],$val['path'],Yii::app()->params->size_image
 				  ,CommonUtility::getPlaceholderPhoto('item')),
 				  'price'=>$price,
@@ -623,7 +623,7 @@ class CMerchantMenu
 				  'item_id'=>$val['item_id'],
 				  'item_uuid'=>$val['item_token'],
 				  'item_name'=>stripslashes(htmlspecialchars_decode($val['item_name'])),
-				  'item_description'=>CommonUtility::formatShortText(htmlspecialchars_decode($val['item_short_description']),130),
+				  'item_description'=>htmlspecialchars_decode(CommonUtility::formatShortText($val['item_short_description'],130)),
 				  'url_image'=>CMedia::getImage($val['photo'],$val['path'],Yii::app()->params->size_image
 				  ,CommonUtility::getPlaceholderPhoto('item')),
 				  'category_id'=>$cat_id>0?array($cat_id):$group_category,
@@ -746,7 +746,7 @@ class CMerchantMenu
 				  'item_uuid'=>$val['item_token'],
 				  'slug'=>stripslashes($val['slug']),
 				  'item_name'=>stripslashes(htmlspecialchars_decode($val['item_name'])),
-				  'item_description'=>CommonUtility::formatShortText(htmlspecialchars_decode($val['item_short_description']),130),
+				  'item_description'=>htmlspecialchars_decode(CommonUtility::formatShortText($val['item_short_description'],130)),
 				  'url_image'=>CMedia::getImage($val['photo'],$val['path'],Yii::app()->params->size_image
 				  ,CommonUtility::getPlaceholderPhoto('item')),		
 				  'category_id'=>$group_category,		  
@@ -852,7 +852,7 @@ class CMerchantMenu
 				  'item_uuid'=>$val['item_token'],
 				  'slug'=>$val['slug'],
 				  'item_name'=>CHtml::decode(htmlspecialchars_decode($val['item_name'])),
-				  'item_description'=>CommonUtility::formatShortText(htmlspecialchars_decode($val['item_short_description']),130),
+				  'item_description'=>htmlspecialchars_decode(CommonUtility::formatShortText($val['item_short_description'],130)),
 				  'url_image'=>CMedia::getImage($val['photo'],$val['path'],Yii::app()->params->size_image
 				  ,CommonUtility::getPlaceholderPhoto('item')),
 				  'price'=>$price,				  

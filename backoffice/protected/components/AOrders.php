@@ -359,7 +359,9 @@ class AOrders
 		$criteria->params  = array(
 		  ':merchant_id'=>intval($merchant_id),		  
 		);
+		$not_in_service_code = "pos";
 		$criteria->addInCondition('status', (array) $status );
+		$criteria->addNotInCondition('service_code', (array) array($not_in_service_code));
 		//$criteria->addSearchCondition('date_created', $date );
 		$criteria->addSearchCondition('delivery_date', $date );
 		

@@ -386,7 +386,7 @@ class COrders
 				   'item_row'=>$val['item_row'],
 				   'cat_id'=>$val['cat_id'],
 				   'item_token'=>$val['item_token'],
-				   'item_name'=>Yii::app()->input->xssClean($val['item_name']),		
+				   'item_name'=>Yii::app()->input->xssClean(htmlspecialchars_decode($val['item_name'])),		
 				   'item_changes'=>$val['item_changes'],
 				   'item_name_replace'=>Yii::app()->input->xssClean($val['item_name_replace']),		
 				   'url_image'=>CMedia::getImage($val['photo'],$val['path'],'@thumbnail',CommonUtility::getPlaceholderPhoto('item')),
@@ -396,7 +396,7 @@ class COrders
 				   'price'=>floatval($val['price']),
 				   'discount'=>floatval($val['discount']),
 				   'discount_type'=>trim($val['discount_type']),
-				   'special_instructions'=>Yii::app()->input->xssClean($val['special_instructions']),	
+				   'special_instructions'=>Yii::app()->input->xssClean(htmlspecialchars_decode($val['special_instructions'])),	
 				   'addon_items'=>$addon_items,
 				   'additional_charge'=>$additional_charge,
 				   'attributes'=>$attributes,
@@ -510,7 +510,7 @@ class COrders
 				$sub_item_id = (integer) $val['sub_item_id'];
 				$data[$sub_item_id] = array(
 				  'sub_item_id'=>$sub_item_id,
-				  'sub_item_name'=>Yii::app()->input->xssClean($val['sub_item_name']),
+				  'sub_item_name'=>Yii::app()->input->xssClean(htmlspecialchars_decode($val['sub_item_name'])),
 				  'item_description'=>Yii::app()->input->xssClean($val['item_description']),
 				  'price'=>(float)$val['price'],
 				  'pretty_price'=>Price_Formatter::formatNumber($val['price']),
@@ -726,11 +726,11 @@ class COrders
     			   'item_row'=>$val['item_row'],
     			   'cat_id'=>$val['cat_id'],    			  
     			   'item_token'=>$val['item_token'],
-    			   'item_name'=>Yii::app()->input->xssClean($val['item_name']),
+    			   'item_name'=>Yii::app()->input->xssClean(htmlspecialchars_decode($val['item_name'])),
     			   'item_changes'=>$val['item_changes'],
-    			   'item_name_replace'=>Yii::app()->input->xssClean($val['item_name_replace']),
+    			   'item_name_replace'=>Yii::app()->input->xssClean(htmlspecialchars_decode($val['item_name_replace'])),
     			   'url_image'=>$val['url_image'],
-    			   'special_instructions'=>Yii::app()->input->xssClean($val['special_instructions']),
+    			   'special_instructions'=>Yii::app()->input->xssClean(htmlspecialchars_decode($val['special_instructions'])),
     			   'if_sold_out'=>$val['if_sold_out'],
     			   'qty'=>intval($val['qty']),
     			   'price'=>array(
@@ -772,7 +772,7 @@ class COrders
     			$size_name = isset($item_price_data['size_name'])?$item_price_data['size_name']:'';    			
     			
 				$results[] = array(
-				   'item_name'=>Yii::app()->input->xssClean($val['item_name']),
+				   'item_name'=>Yii::app()->input->xssClean(htmlspecialchars_decode($val['item_name'])),
     			   'url_image'=>$val['url_image'],
     			   'qty'=>intval($val['qty']),
     			   'size_name'=>$size_name
@@ -2446,7 +2446,7 @@ class COrders
 				));
 				if($item){
 					$description = t($description,array(
-					  '{{item_name}}'=>Yii::app()->input->xssClean($item->item_name)
+					  '{{item_name}}'=>Yii::app()->input->xssClean(htmlspecialchars_decode($item->item_name))
 					));
 				}
 				
