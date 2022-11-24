@@ -56,6 +56,8 @@ ref="refund"
      order_info.status=='delivery on its way'&&order_info.service_code=='delivery'&&button.button_name=='Delivered' ||  
      order_info.status=='delivery on its way'&&order_info.service_code=='delivery'&&button.button_name=='Delivery Failed' ||  
      order_info.status=='accepted'&&order_info.service_code=='pickup'&&button.button_name=='Ready for Pickup' || 
+     order_info.status=='ready for pickup'&&order_info.service_code=='pickup'&&button.button_name=='Order failed' || 
+     order_info.status=='ready for pickup'&&order_info.service_code=='pickup'&&button.button_name=='Complete' || 
      order_info.status=='new'&&button.button_name=='Accept' || order_info.status=='new'&&button.button_name=='Decline'"  
         :class="button.class_name" 
         @click="doUpdateOrderStatus(button.uuid,order_info.order_uuid,button.do_actions)"        

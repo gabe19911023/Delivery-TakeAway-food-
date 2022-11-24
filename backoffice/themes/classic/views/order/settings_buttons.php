@@ -7,13 +7,15 @@
          group_name="new_order"
          :status_list='<?php echo json_encode($status)?>'
          :do_action_list='<?php echo json_encode($do_actions)?>'
+         :order_type_list='<?php echo json_encode($order_type)?>'  
          ajax_url="<?php echo Yii::app()->createUrl("/api")?>"  
          :label="{
            title:'<?php echo CJavaScript::quote(t("New Orders"))?>',      
            text:'<?php echo CJavaScript::quote(t("define the buttons for this tab"))?>',            
            add : '<?php echo CJavaScript::quote(t("Add"))?>',
            save : '<?php echo CJavaScript::quote(t("Save"))?>',
-           close : '<?php echo CJavaScript::quote(t("Close"))?>',           
+           close : '<?php echo CJavaScript::quote(t("Close"))?>',      
+           order_type : '<?php echo CJavaScript::quote(t("Order Type"))?>',     
            button_status : '<?php echo CJavaScript::quote(t("Status"))?>',
            button_name : '<?php echo CJavaScript::quote(t("Button Name"))?>',
            actions : '<?php echo CJavaScript::quote(t("Actions"))?>',
