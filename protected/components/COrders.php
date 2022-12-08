@@ -1881,7 +1881,7 @@ class COrders
 		    
 		    $tracking_link = Yii::app()->createAbsoluteUrl("/orders/index",array('order_uuid'=>$order->order_uuid));    
 		    $payment_name = $payment?$payment->payment_name:$order->payment_code;
-		    $place_on = Date_Formatter::dateTime($order->date_created);
+		    $place_on = Date_Formatter::dateTimeExpYear($order->date_created);
 		    
 		    $transaction = AR_ordernew_transaction::model()->find('order_id=:order_id', 
 		    array(':order_id'=>$order->order_id)); 	
@@ -1892,7 +1892,7 @@ class COrders
 		    		$payment_name_stats = t("Paid by [payment_name]",array('[payment_name]'=>$payment_name));
 		    		$paid_on = t("Paid on [date]",array('[date]'=>Date_Formatter::dateTime($transaction->date_created)));
 		    	} else {
-		    		$payment_name_stats = t("Payment by {{payment_name}}",array('{{payment_name}}'=>$payment_name));
+		    		$payment_name_stats = t("{{payment_name}}",array('{{payment_name}}'=>$payment_name));
 		    	}		    	
 		    } else $payment_name_stats = $payment_name;
 		    
@@ -1900,12 +1900,12 @@ class COrders
 		    if($order->whento_deliver=="now"){
 		    	$delivery_date = t("Asap");
 		    } else {
-		    	$due_at = Date_Formatter::dateTime( $order->delivery_date." ".$order->delivery_time );
+		    	$due_at = Date_Formatter::dateTimeExpYear( $order->delivery_date." ".$order->delivery_time );
 		    	$delivery_date = t("Scheduled at [delivery_date]",array(
 				    	 '[delivery_date]'=>$due_at
 				    	));
 		    	if($order->delivery_date==$datenow){
-		    		$delivery_date = t("Due at [delivery_date], Today",array(
+		    		$delivery_date = t("Today, [delivery_date]",array(
 				    	 '[delivery_date]'=>$due_at
 				    	));
 		    	}
@@ -2412,7 +2412,7 @@ class COrders
     			   'payment_reference'=>$item->payment_reference,
     			   'status'=>$item->status,
     			   'reason'=>$item->reason,
-    			   'date_created'=>Date_Formatter::dateTime($item->date_created),    			       			   
+    			   'date_created'=>Date_Formatter::dateTimeExpYear($item->date_created),    			       			   
     			);
     		}
     		return $data;    	

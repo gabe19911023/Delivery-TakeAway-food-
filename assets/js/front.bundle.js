@@ -2686,7 +2686,7 @@
                    
                      <template v-if="trans.service_code=='delivery'">
                          <template v-if="item.charge_type==charge_type">	              
-                          <p class="m-0">{{item.estimation}} {{label.label}}</p>
+                          <p class="m-0">{{item.estimation}} {{label.label}}min</p>
                          </template>
                      </template>
                      <template v-else> 

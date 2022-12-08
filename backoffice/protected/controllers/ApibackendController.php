@@ -89,7 +89,7 @@ class ApibackendController extends CommonServices
 
 			$order['order_info']['delivery_direction'] = $delivery_direction;			
 
-		    $customer = COrders::getClientInfo($client_id);				    
+		    $customer = COrders::getClientInfo($client_id);			    
 		    $count = COrders::getCustomerOrderCount($client_id,$merchant_id);
 		    $customer['order_count'] = $count;
 		    		    
@@ -143,7 +143,7 @@ class ApibackendController extends CommonServices
 		       'data'=>$data,		      
 		    );		  
 		    		    
-		    //dump($summary);
+		    // dump($summary);
 		    //die();
 		    		    		    		   
 		    $model = COrders::get($order_uuid);
@@ -1758,12 +1758,13 @@ HTML;
          	$order_type = t("Order Type.");
          	$order_type.="<span class='ml-2 services badge $item->service_code'>$trans_order_type</span>";
          	
-         	$total = t("Total. {{total}}",array(
+         	$total = t("Total {{total}}",array(
          	 '{{total}}'=>Price_Formatter::formatNumber($item->total)
          	));
-         	$place_on = t("Place on {{date}}",array(
+         	$place_on = t("{{date}}",array(
          	 '{{date}}'=>Date_Formatter::dateTime($item->date_created)
          	));
+			 $place_on = $item->date_created;
          	
          	$status_trans = $item->status;
          	if(array_key_exists($item->status, (array) $status)){

@@ -238,12 +238,6 @@ id="itemModal" tabindex="-1" role="dialog" aria-labelledby="itemModal" aria-hidd
         </textarea>       
       </div>   
       
-      <h5 class="m-0 mt-2 mb-2"><?php echo t("If sold out")?></h5>            
-      <div class="form-label-group m-0 p-0 mb-3">  
-	   <select v-model="if_sold_out" class="form-control custom-select">		 
-	    <option v-for="(sold_label, sold_key) in sold_out_options" :value="sold_key" >{{sold_label}}</option>
-	   </select>
-	  </div>
       
       </div> <!--modal body-->
       

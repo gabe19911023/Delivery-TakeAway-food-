@@ -48,6 +48,21 @@ class Date_Formatter
 		   return Yii::app()->dateFormatter->format($pattern, $date);
 		}
 	}
+
+	public static function dateTimeExpYear($date='',$pattern='dd MMM yyyy h:mm a',$force_format=false)
+	{								
+		Date_Formatter::Init();				
+		if(!empty(self::$dateFormat) && !$force_format){
+			$pattern = self::$dateFormat;
+		}		
+		if(!empty(self::$timeFormat && !$force_format )){
+			$pattern.= " ".self::$timeFormat;
+		}		
+		$pattern="d MMM hh:mm a";
+		if(!empty($date)){
+		   return Yii::app()->dateFormatter->format($pattern, $date);
+		}
+	}
 	
 	public static function Time($time='',$pattern='h:mm a',$force_format=false)
 	{	

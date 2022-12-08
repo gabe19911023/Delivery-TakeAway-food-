@@ -165,7 +165,7 @@ ref="refund"
         <img class="img-20" src="<?php echo Yii::app()->theme->baseUrl?>/assets/images/location.png">
         </div>
         <div>
-          <h5 class="m-0"><?php echo t("Delivery information")?> :</h5>
+          <h5 class="m-0"><?php echo t("Other info")?> :</h5>
           <p class="m-0">{{order_info.customer_name}}</p>
           <p class="m-0">{{order_info.contact_number}}</p>          
           <p class="m-0">                      
@@ -201,7 +201,7 @@ ref="refund"
        </td>
       </tr>
       <tr>
-       <td><?php echo t("Delivery Date/Time")?></td>
+       <td><?php echo t("Date/Time requested")?></td>
        <td>       
        <p v-if="order_info.whento_deliver=='now'" class="m-0 text-muted" id="scheduled_at">{{order_info.schedule_at}}</p>
        <p v-if="order_info.whento_deliver=='schedule'" class="m-0 text-muted" id="scheduled_at">{{order_info.schedule_at}}</p>
@@ -492,7 +492,7 @@ ref="refund"
       </tr>
       <tr v-for="payment in payment_history">
         <td>{{payment.date_created}}</td>
-        <td>{{payment.payment_code}}</td>
+        <td>{{order_info.payment_name}}</td>
         <td>
         {{payment.transaction_description}} 
         <p v-if="payment.payment_reference" class="text-muted"><i><small>Reference# {{payment.payment_reference}}</small></i></p> 

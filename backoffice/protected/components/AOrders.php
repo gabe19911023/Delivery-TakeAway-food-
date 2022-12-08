@@ -120,7 +120,7 @@ class AOrders
 			    } else {
 			    	if($item->delivery_date==$date){
 			    		$date = Date_Formatter::Time( $item->delivery_date." ".$item->delivery_time );
-				    	$delivery_date = t("Due at [delivery_date], Today",array(
+				    	$delivery_date = t("Today, [delivery_date]",array(
 				    	 '[delivery_date]'=>$date
 				    	));
 			    	} else {
