@@ -877,7 +877,6 @@ class ApibackendController extends CommonServices
 	{
 				
 		try {
-			
 		   $order_uuid = isset($this->data['order_uuid'])?$this->data['order_uuid']:'';
 		   $customer_name = isset($this->data['customer_name'])?$this->data['customer_name']:'';
 		   $contact_number = isset($this->data['contact_number'])?$this->data['contact_number']:'';
@@ -1755,16 +1754,17 @@ HTML;
          		$trans_order_type = $services[$item->service_code]['service_name'];
          	}
          	
-         	$order_type = t("Order Type.");
+         	$order_type = t("Order Type ");
          	$order_type.="<span class='ml-2 services badge $item->service_code'>$trans_order_type</span>";
          	
          	$total = t("Total {{total}}",array(
          	 '{{total}}'=>Price_Formatter::formatNumber($item->total)
          	));
          	$place_on = t("{{date}}",array(
-         	 '{{date}}'=>Date_Formatter::dateTime($item->date_created)
+         	 '{{date}}'=>Date_Formatter::dateTimeExpYear($item->date_created)
          	));
-			 $place_on = $item->date_created;
+
+			// $place_on = $item->date_created;
          	
          	$status_trans = $item->status;
          	if(array_key_exists($item->status, (array) $status)){
@@ -1780,9 +1780,11 @@ HTML;
          	));
          	
          	$status_class = str_replace(" ","_",$item->status);
-         	         	
+         	
          	if(array_key_exists($item->payment_code,(array)$payment_list)){
-	            $item->payment_code = $payment_list[$item->payment_code];
+				if(strcmp("cod", $item->payment_code) == 0) $item->payment_code = "Cash";
+				else $item->payment_code = $payment_list[$item->payment_code]; 
+				// var_dump($item->payment_code); exit();
 	        }
 			        
 	        $avatar = CMedia::getImage($item->logo,$item->path,'@thumbnail',
@@ -1807,7 +1809,7 @@ HTML;
          		$data[]=array(
          		  'logo'=>'<img class="img-60 rounded-circle" src="'.$avatar.'">',
         		  'order_id'=>$item->order_id,
-        		  'client_id'=>$customer_name,
+				  'client_id'=>$item->first_name." ".$item->last_name." ".$item->cart_uuid." ".$item->address_component,
         		  'status'=>$information,
         		  'order_uuid'=>$buttons
         		);
@@ -3580,7 +3582,7 @@ HTML;
 			        $trans_order_type = $services[$item->trans_type]['service_name'];
 			    }
     
-			    $order_type = t("Order Type.");
+			    $order_type = t("Order Type ");
                 $order_type.="<span class='ml-2 services badge $item->trans_type'>$trans_order_type</span>";
                 
                 $total = t("Total. {{total}}",array(
@@ -4018,14 +4020,14 @@ HTML;
          		$trans_order_type = $services[$item->service_code]['service_name'];
          	}
          	
-         	$order_type = t("Order Type.");
+         	$order_type = t("Order Type");
          	$order_type.="<span class='ml-2 services badge $item->service_code'>$trans_order_type</span>";
          	
-         	$total = t("Total. {{total}}",array(
+         	$total = t("Total {{total}}",array(
          	 '{{total}}'=>Price_Formatter::formatNumber($item->total)
          	));
-         	$place_on = t("Place on {{date}}",array(
-         	 '{{date}}'=>Date_Formatter::dateTime($item->date_created)
+         	$place_on = t("{{date}}",array(
+         	 '{{date}}'=>Date_Formatter::dateTimeExpYear($item->date_created)
          	));
          	
          	$status_trans = $item->status;
@@ -4044,7 +4046,8 @@ HTML;
          	$status_class = str_replace(" ","_",$item->status);
          	         	
          	if(array_key_exists($item->payment_code,(array)$payment_list)){
-	            $item->payment_code = $payment_list[$item->payment_code];
+				if(strcmp("cod", $item->payment_code) == 0) $item->payment_code = "Cash";
+				else $item->payment_code = $payment_list[$item->payment_code];
 	        }
 			        
 	        $avatar = CMedia::getImage($item->logo,$item->path,'@thumbnail',
@@ -4069,7 +4072,7 @@ HTML;
          		$data[]=array(
          		  'logo'=>'<img class="img-60 rounded-circle" src="'.$avatar.'">',
         		  'order_id'=>$item->order_id,
-        		  'client_id'=>$item->customer_name,
+        		  'client_id'=>$item->first_name." ".$item->last_name." ".$item->cart_uuid." ".$item->address_component, 
         		  'status'=>$information,
         		  'order_uuid'=>$buttons
         		);

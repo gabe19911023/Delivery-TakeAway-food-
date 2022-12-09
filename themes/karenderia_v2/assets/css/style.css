@@ -2924,7 +2924,12 @@ form .errorMessage {
 }
 
 .widget-search {
-  display: none;
+  display: none; 
+}
+@media only screen and (max-width: 480px){
+  .widget-search {
+    display: none !important; 
+  }
 }
 
 .action-menu .widget-search {

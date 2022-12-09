@@ -1880,7 +1880,8 @@ class COrders
 		    array(':payment_code'=>$order->payment_code)); 			
 		    
 		    $tracking_link = Yii::app()->createAbsoluteUrl("/orders/index",array('order_uuid'=>$order->order_uuid));    
-		    $payment_name = $payment?$payment->payment_name:$order->payment_code;
+		    $payment_name = $payment?"Cash":$order->payment_code;
+
 		    $place_on = Date_Formatter::dateTimeExpYear($order->date_created);
 		    
 		    $transaction = AR_ordernew_transaction::model()->find('order_id=:order_id', 
@@ -1893,6 +1894,7 @@ class COrders
 		    		$paid_on = t("Paid on [date]",array('[date]'=>Date_Formatter::dateTime($transaction->date_created)));
 		    	} else {
 		    		$payment_name_stats = t("{{payment_name}}",array('{{payment_name}}'=>$payment_name));
+					// if(len($payment_name))$payment_name_stats = t($payment_name.split(" ", 2)[0]);
 		    	}		    	
 		    } else $payment_name_stats = $payment_name;
 		    
@@ -1900,7 +1902,7 @@ class COrders
 		    if($order->whento_deliver=="now"){
 		    	$delivery_date = t("Asap");
 		    } else {
-		    	$due_at = Date_Formatter::dateTimeExpYear( $order->delivery_date." ".$order->delivery_time );
+		    	$due_at = Date_Formatter::dateTimeExpYearWeek( $order->delivery_date." ".$order->delivery_time );
 		    	$delivery_date = t("Scheduled at [delivery_date]",array(
 				    	 '[delivery_date]'=>$due_at
 				    	));
@@ -1926,7 +1928,7 @@ class COrders
     		  'payment_status'=>$order->payment_status,    		  
     		  'payment_code'=>$order->payment_code,
     		  'payment_name'=>$payment_name_stats,
-    		  'service_code'=>$order->service_code,    		
+			  'service_code'=>$order->service_code,    		
     		  'order_type'=>$order->service_code,    		
     		  'whento_deliver'=>$order->whento_deliver,
     		  'schedule_at'=>$delivery_date,    		  

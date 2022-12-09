@@ -49,20 +49,65 @@ class Date_Formatter
 		}
 	}
 
-	public static function dateTimeExpYear($date='',$pattern='dd MMM yyyy h:mm a',$force_format=false)
+	public static function dateTimeExpYear($date='',$pattern='dd MMM yyyy h:mm a',$force_format=false, $res = "")
 	{								
-		Date_Formatter::Init();				
-		if(!empty(self::$dateFormat) && !$force_format){
-			$pattern = self::$dateFormat;
+		Date_Formatter::Init();
+					
+		if(!empty($date) && !empty(self::$dateFormat) && !$force_format){
+			// $pattern = self::$dateFormat;
+			$pattern="EEE, ";
+			$res = Yii::app()->dateFormatter->format($pattern, $date);
+			$pattern="d";
+			$res .= Yii::app()->dateFormatter->format($pattern, $date);
+			
+			$last_dig = ((int)$res)%10;
+			if($last_dig == 1)$res .="st ";
+			else if($last_dig == 2)$res .="nd ";
+			else $res .="th ";
+
+			$pattern="MMM";
+			$res .= Yii::app()->dateFormatter->format($pattern, $date);
 		}		
 		if(!empty(self::$timeFormat && !$force_format )){
-			$pattern.= " ".self::$timeFormat;
+			// $pattern.= " ".self::$timeFormat;
+			$pattern=" - hh:mm a";
+			$res .= Yii::app()->dateFormatter->format($pattern, $date);
 		}		
-		$pattern="d MMM hh:mm a";
 		if(!empty($date)){
-		   return Yii::app()->dateFormatter->format($pattern, $date);
+		   	return $res;
 		}
 	}
+
+	public static function dateTimeExpYearWeek($date='',$pattern='dd MMM yyyy h:mm a',$force_format=false, $res = "")
+	{								
+		Date_Formatter::Init();
+					
+		if(!empty($date) && !empty(self::$dateFormat) && !$force_format){
+			// $pattern = self::$dateFormat;
+			$pattern="d";
+			$res .= Yii::app()->dateFormatter->format($pattern, $date);
+			
+			$last_dig = ((int)$res)%10;
+			if($last_dig == 1)$res .="st ";
+			else if($last_dig == 2)$res .="nd ";
+			else $res .="th ";
+
+			$pattern="MMM";
+			$res .= Yii::app()->dateFormatter->format($pattern, $date);
+
+			$pattern=" (EEE)";
+			$res .= Yii::app()->dateFormatter->format($pattern, $date);
+		}		
+		if(!empty(self::$timeFormat && !$force_format )){
+			// $pattern.= " ".self::$timeFormat;
+			$pattern=" - hh:mm a";
+			$res .= Yii::app()->dateFormatter->format($pattern, $date);
+		}		
+		if(!empty($date)){
+		   	return $res;
+		}
+	}
+
 	
 	public static function Time($time='',$pattern='h:mm a',$force_format=false)
 	{	
