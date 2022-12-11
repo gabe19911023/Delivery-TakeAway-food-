@@ -28,10 +28,10 @@ class PosController extends Commonmerchant
 		$this->pageTitle = t("POS Orders");
 		
 		$table_col = array(
-		  'logo'=>array(
-		    'label'=>'',
-		    'width'=>'8%'
-		  ),
+		//   'logo'=>array(
+		//     'label'=>'',
+		//     'width'=>'8%'
+		//   ),
 		  'order_id'=>array(
 		    'label'=>t("Order ID"),
 		    'width'=>'8%'
@@ -50,7 +50,7 @@ class PosController extends Commonmerchant
 		  ),
 		);
 		$columns = array(
-		  array('data'=>'logo','orderable'=>false),
+		//   array('data'=>'logo','orderable'=>false),
 		  array('data'=>'order_id'),
 		  array('data'=>'client_id','orderable'=>false),
 		  array('data'=>'status','orderable'=>false),		  

@@ -167,11 +167,7 @@ class OrdersController extends Commonmerchant
 		$this->layout = 'backend_merchant';	
 		$this->pageTitle = t("Order history");
 		
-		$table_col = array(
-		  'logo'=>array(
-		    'label'=>'',
-		    'width'=>'8%'
-		  ),
+		$table_col = array(	
 		  'order_id'=>array(
 		    'label'=>t("Order ID"),
 		    'width'=>'8%'
@@ -190,19 +186,19 @@ class OrdersController extends Commonmerchant
 		  ),
 		);
 		$columns = array(
-		  array('data'=>'logo','orderable'=>false),
 		  array('data'=>'order_id'),
 		  array('data'=>'client_id','orderable'=>false),
 		  array('data'=>'status','orderable'=>false),		  
 		  array('data'=>'order_uuid','orderable'=>false),		  
-		);				
-		
+		);
+			
 		$this->render("list-history",array(
 		  'table_col'=>$table_col,
 		  'columns'=>$columns,		
 		  'order_col'=>1,
           'sortby'=>'desc',  
 		));
+			
 	}
 	
 }

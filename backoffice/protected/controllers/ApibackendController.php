@@ -1680,7 +1680,9 @@ HTML;
 				
 		$page = $page>0? intval($page)/intval($length) : 0;	
 		$criteria=new CDbCriteria();
+		  
 		$criteria->alias = "a";
+		
 		$criteria->select = "a.order_id, a.client_id, a.status, a.order_uuid , 
 		a.payment_code, a.service_code,a.total, a.date_created,
 		(
@@ -1698,6 +1700,7 @@ HTML;
 		$criteria->params  = array(
 		  ':merchant_id'=>intval($merchant_id)
 		);
+		
 		if(!empty($date_start) && !empty($date_end)){
 			$criteria->addBetweenCondition("DATE_FORMAT(a.date_created,'%Y-%m-%d')", $date_start , $date_end );
 		}
@@ -1730,7 +1733,7 @@ HTML;
         $pages->applyLimit($criteria);        
 
         $models = AR_ordernew::model()->findAll($criteria);
-                
+        
         if($models){
          	foreach ($models as $item) {         		
 
@@ -1740,6 +1743,7 @@ HTML;
 			$criteriam->addInCondition('meta_name', array('customer_name'));
 			$criteriam->addInCondition('order_id', array($item->order_id));
 			$modelm = AR_ordernew_meta::model()->find($criteriam);
+			
 			if($modelm){
 				$customer_name = $modelm->meta_value;
 			}
@@ -1778,7 +1782,8 @@ HTML;
          	$print_pdf = Yii::app()->createUrl('print/pdf',array(
          	  'order_uuid'=>$item->order_uuid
          	));
-         	
+
+
          	$status_class = str_replace(" ","_",$item->status);
          	
          	if(array_key_exists($item->payment_code,(array)$payment_list)){
@@ -1786,14 +1791,38 @@ HTML;
 				else $item->payment_code = $payment_list[$item->payment_code]; 
 				// var_dump($item->payment_code); exit();
 	        }
-			        
+			
+
 	        $avatar = CMedia::getImage($item->logo,$item->path,'@thumbnail',
 		         CommonUtility::getPlaceholderPhoto('customer'));
-		         
-         		
+
+		    $cur_client = AR_client::model()->find("client_id=:client_id" ,array(':client_id'=>$item->client_id)); // first_name, last_name, contact_phone
+			$cur_client_address = AR_client_address::model()->find("client_id=:client_id" ,array(':client_id'=>$item->client_id)); // formatted_address
+		
+			if(gettype($cur_client) != 'NULL'){
+				$cur_client_phone = $cur_client->contact_phone;
+				$cur_client = $cur_client->first_name." ".$cur_client->last_name;
+			}
+			else {
+				$cur_client = "";
+				$cur_client_phone="";
+			}
+
+			if(gettype($cur_client_address) != 'NULL'){
+				$cur_client_address = isset($cur_client_address->formatted_address)?$cur_client_address->formatted_address:"";
+			}else{
+				$cur_client_address= "";
+			}
+			
+$client_id_val = <<<HTML
+$cur_client
+<p class="dim m-0">$cur_client_phone</p>
+$cur_client_address<br>
+HTML;
+	
 $information = <<<HTML
 $item->total_items<span class="ml-2 badge order_status $status_class">$status_trans</span>
-<p class="dim m-0">$item->payment_code</p>
+<p class="dim m-0">$item->payment_code</p> 
 <p class="dim m-0">$order_type</p>
 <p class="dim m-0">$total</p>
 <p class="dim m-0">$place_on</p>
@@ -1809,7 +1838,7 @@ HTML;
          		$data[]=array(
          		  'logo'=>'<img class="img-60 rounded-circle" src="'.$avatar.'">',
         		  'order_id'=>$item->order_id,
-				  'client_id'=>$item->first_name." ".$item->last_name." ".$item->cart_uuid." ".$item->address_component,
+				  'client_id'=>$client_id_val,
         		  'status'=>$information,
         		  'order_uuid'=>$buttons
         		);
@@ -4053,7 +4082,32 @@ HTML;
 	        $avatar = CMedia::getImage($item->logo,$item->path,'@thumbnail',
 		         CommonUtility::getPlaceholderPhoto('customer'));
 		         
-         		
+
+			$cur_client = AR_client::model()->find("client_id=:client_id" ,array(':client_id'=>$item->client_id)); // first_name, last_name, contact_phone
+			$cur_client_address = AR_client_address::model()->find("client_id=:client_id" ,array(':client_id'=>$item->client_id)); // formatted_address
+
+
+			if(gettype($cur_client) != 'NULL'){
+				$cur_client_phone = $cur_client->contact_phone;
+				$cur_client = $cur_client->first_name." ".$cur_client->last_name;
+			}
+			else {
+				$cur_client = "";
+				$cur_client_phone="";
+			}
+
+			if(gettype($cur_client_address) != 'NULL'){
+				$cur_client_address = isset($cur_client_address->formatted_address)?$cur_client_address->formatted_address:"";
+			}else{
+				$cur_client_address= "";
+			}
+			
+$client_id_val = <<<HTML
+$cur_client
+<p class="dim m-0">$cur_client_phone</p>
+$cur_client_address<br>
+HTML;
+
 $information = <<<HTML
 $item->total_items<span class="ml-2 badge order_status $status_class">$status_trans</span>
 <p class="dim m-0">$item->payment_code</p>
@@ -4072,7 +4126,7 @@ HTML;
          		$data[]=array(
          		  'logo'=>'<img class="img-60 rounded-circle" src="'.$avatar.'">',
         		  'order_id'=>$item->order_id,
-        		  'client_id'=>$item->first_name." ".$item->last_name." ".$item->cart_uuid." ".$item->address_component, 
+        		  'client_id'=>$client_id_val, 
         		  'status'=>$information,
         		  'order_uuid'=>$buttons
         		);
