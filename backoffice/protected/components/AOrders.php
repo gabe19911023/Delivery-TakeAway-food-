@@ -125,7 +125,7 @@ class AOrders
 				    	));
 			    	} else {
 				    	$date = Date_Formatter::dateTime( $item->delivery_date." ".$item->delivery_time );
-				    	$delivery_date = t("Scheduled at [delivery_date]",array(
+				    	$delivery_date = t("[delivery_date]",array(
 				    	 '[delivery_date]'=>$date
 				    	));
 			    	}

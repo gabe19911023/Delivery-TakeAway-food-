@@ -114,6 +114,7 @@ $(document).ready(function(e){
 	
 	function cws_updateService(valu){
 		var crtuid = localStorage.getItem('cws_cart_uuid');
+        console.log('delivery');
 		$.ajax({
             url: '/api/updateService',
             type:'POST',
@@ -250,6 +251,7 @@ $(document).ready(function(e){
         });
     });
     $(document).on('click','.modal-change-delivery',function(e){
+        // console.log('===========>', 'modal-change-delivery');
 		updateDeliveryTimes($('#orderTypeTime input[type=radio]:checked').val());
         $('#orderTypeTime').modal('show');
     });
@@ -259,6 +261,7 @@ $(document).ready(function(e){
     });
 	
     $(document).on('change','.custom_delivery_days',function(e){
+       
         var html = '';
         $.each(timeRanges[$(this).val()], function( index, value ) {
             html += '<option value="'+index+'">'+value.pretty_time+'</option>';
@@ -297,7 +300,7 @@ $(document).ready(function(e){
                         $('.top_order_status').text(data.details.progress.order_status);
                         $('.top_order_status2').text(data.details.order_info.status);
                     }
-                   // console.log(data);
+                   console.log(data);
                 },
                 error: function(response) {
                 }
@@ -341,6 +344,7 @@ function updateDeliveryTimes(type){
         success: function(response) {
             if(response.code == 1){
                 var html = '';
+                // console.log('===========>', response.details);
                 $.each(response.details.opening_hours.dates, function( index, value ) {
                     html += '<option value="'+value.value+'">'+value.name+'</option>';
                 });
@@ -350,16 +354,27 @@ function updateDeliveryTimes(type){
                 timeRanges = response.details.opening_hours.time_ranges;
 				
 				if(timeRanges == ''){
-					$('.section-cart .btn-green').remove();
+					$('.section-cart .btn-green').attr('style', 'display: none!important');
 					$('.quantity-add-cart').attr('disabled',true);
 					html = '<option value="">No times available today</option>';
 				}else{
+                    $('.section-cart .btn-green').attr('style', 'display: block');
 					$.each(response.details.opening_hours.time_ranges[getFirstKey(response.details.opening_hours.time_ranges)], function( index, value ) {
-						if(index == 0){
+                        
+                        // current_hour = parseInt(response.details.current1.split(':')[0]);
+                        // current_min = parseInt(response.details.current1.split(':')[1].split(' ')[0]);
+                        
+                        // pos_hour = parseInt(value.start_time.split(':')[0]);
+                        // pos_min = parseInt(value.start_time.split(':')[1]);
+                        // if(current_hour > pos_hour)return;
+                        // if(current_hour == pos_hour && current_min > pos_min)continue;
+                        // console.log('============>', response.details);
+                        if(index == 0){
 							html += '<option value="'+index+'">'+value.pretty_time+' (ASAP)</option>';
-						}else{
+                        }else{
 							html += '<option value="'+index+'">'+value.pretty_time+'</option>';
 						}
+
 					});
 				}
                 if($('#delivery_time').length > 0){
@@ -367,8 +382,9 @@ function updateDeliveryTimes(type){
                     $('#delivery_time').append(html);
                 }else{
                     $('#custom_delivery_time').html('');
-                    $('#custom_delivery_time').append(html);
+                    $('#custom_delivery_time').append(html); 
                 }
+                // console.log('=================> delivery_time', $('#delivery_time').length);
 				if(timeRanges != ''){
 					var dlvrtim = localStorage.getItem('dlvrtim');
 					if(typeof(dlvrtim) != 'undefined' && dlvrtim != null){
@@ -386,6 +402,11 @@ function updateDeliveryTimes(type){
 }
 function updateAddress(value){
     updateDeliveryTimes(value);
+    setTimeout(700);
+    saveScheduleOrder();
+    
+    console.log('========>', value); // delivery, pick up
+
     switch (value) {
     case 'pickup':
         $('.search-geocomplete-content').hide();

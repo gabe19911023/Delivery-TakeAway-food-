@@ -156,8 +156,9 @@
     </button>
     </template>
 <?php else :?>    
+
 <template v-if="cart_items.length>0">          
-    <a class="btn btn-green w-100 pointer d-flex justify-content-between" :disabled="hasError"
+    <a class="btn btn-green w-100 pointer d-flex justify-content-between" id = "checkout_click" :disabled="hasError"
     :href="hasError?'javascript:;':'<?php echo isset($checkout_link)?$checkout_link:'';?>'"
     >
     <div class="flex-col"><?php echo t("Checkout")?></div>

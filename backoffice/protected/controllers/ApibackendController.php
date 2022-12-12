@@ -1736,7 +1736,7 @@ HTML;
         
         if($models){
          	foreach ($models as $item) {         		
-
+				// var_dump($item); exit();
 			// get customer name
 			$customer_name = '';
 			$criteriam = new CDbCriteria;				
@@ -1798,7 +1798,6 @@ HTML;
 
 		    $cur_client = AR_client::model()->find("client_id=:client_id" ,array(':client_id'=>$item->client_id)); // first_name, last_name, contact_phone
 			$cur_client_address = AR_client_address::model()->find("client_id=:client_id" ,array(':client_id'=>$item->client_id)); // formatted_address
-		
 			if(gettype($cur_client) != 'NULL'){
 				$cur_client_phone = $cur_client->contact_phone;
 				$cur_client = $cur_client->first_name." ".$cur_client->last_name;
@@ -1817,7 +1816,7 @@ HTML;
 $client_id_val = <<<HTML
 $cur_client
 <p class="dim m-0">$cur_client_phone</p>
-$cur_client_address<br>
+<br>
 HTML;
 	
 $information = <<<HTML
@@ -3983,7 +3982,7 @@ HTML;
 		$criteria=new CDbCriteria();
 		$criteria->alias = "a";
 		$criteria->select = "a.order_id, a.client_id, a.status, a.order_uuid , 
-		a.payment_code, a.service_code,a.total, a.date_created,
+		a.payment_code, a.service_code, a.total, a.date_created,
 		b.meta_value as customer_name, 
 		(
 		   select sum(qty)
@@ -3994,9 +3993,10 @@ HTML;
 		c.avatar as logo, c.path
 		";
 		$criteria->join='
-		LEFT JOIN {{ordernew_meta}} b on  a.order_id=b.order_id 
+		LEFT JOIN {{ordernew_meta}} b on  a.order_id = b.order_id 
 		LEFT JOIN {{client}} c on  a.client_id = c.client_id 
 		';
+
 		$criteria->condition = "a.merchant_id=:merchant_id AND meta_name=:meta_name ";
 		$criteria->params  = array(
 		  ':merchant_id'=>intval($merchant_id),		  
@@ -4035,10 +4035,10 @@ HTML;
         $pages->applyLimit($criteria);        
                         
         $models = AR_ordernew::model()->findAll($criteria);
-                
+		     
         if($models){
-         	foreach ($models as $item) {         		
-
+         	foreach ($models as $item) {     
+			
          	$item->total_items = intval($item->total_items);
          	$item->total_items = t("{{total_items}} items",array(
          	 '{{total_items}}'=>$item->total_items
@@ -4052,13 +4052,23 @@ HTML;
          	$order_type = t("Order Type");
          	$order_type.="<span class='ml-2 services badge $item->service_code'>$trans_order_type</span>";
          	
+			$total = AR_ordernew_item::model()->find("order_id=:order_id" ,array(':order_id'=>$item->order_id)); // total_val
+			if(gettype($total) != 'NULL'){
+				$total = isset($total->price)?$total->price:"";
+			}else {
+				$total = "";
+			}
+			// var_dump($total); exit();    		
+			
+
          	$total = t("Total {{total}}",array(
-         	 '{{total}}'=>Price_Formatter::formatNumber($item->total)
+         	 '{{total}}'=>Price_Formatter::formatNumber($total)
          	));
          	$place_on = t("{{date}}",array(
          	 '{{date}}'=>Date_Formatter::dateTimeExpYear($item->date_created)
          	));
-         	
+
+        
          	$status_trans = $item->status;
          	if(array_key_exists($item->status, (array) $status)){
          		$status_trans = $status[$item->status]['status'];
@@ -4102,10 +4112,11 @@ HTML;
 				$cur_client_address= "";
 			}
 			
+			
 $client_id_val = <<<HTML
 $cur_client
 <p class="dim m-0">$cur_client_phone</p>
-$cur_client_address<br>
+<br>
 HTML;
 
 $information = <<<HTML

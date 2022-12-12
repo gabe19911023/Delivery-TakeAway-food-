@@ -1903,7 +1903,7 @@ class COrders
 		    	$delivery_date = t("Asap");
 		    } else {
 		    	$due_at = Date_Formatter::dateTimeExpYearWeek( $order->delivery_date." ".$order->delivery_time );
-		    	$delivery_date = t("Scheduled at [delivery_date]",array(
+		    	$delivery_date = t("[delivery_date]",array(
 				    	 '[delivery_date]'=>$due_at
 				    	));
 		    	if($order->delivery_date==$datenow){
