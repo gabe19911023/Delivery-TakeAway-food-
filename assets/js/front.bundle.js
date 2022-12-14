@@ -6346,7 +6346,8 @@
                 selected_payment_uuid : 'default',	
                 error_payment : '',
                 error_placeorder : [],
-                is_submit : false
+                is_submit : false,
+                checkbutton_status: 0,
             };
         },
         mounted () {
@@ -6411,7 +6412,8 @@
                     };		
                     
                     NProgress.start();
-                                                      
+                    console.log('====> here');    
+                                    
                      ajax_request[timenow] = $.ajax({
                          url: ajaxurl+"/getCart",
                          method: "PUT",
@@ -6420,7 +6422,8 @@
                          contentType : $content_type.json ,
                          timeout: $timeout,
                          crossDomain: true,
-                         beforeSend: data => {		 	    				 	    
+                         beforeSend: data => {	
+                            console.log('getCart',)	 	    				 	    
                               if(ajax_request[timenow] != null) {	
                                  ajax_request[timenow].abort();
                               }
@@ -6436,7 +6439,23 @@
                               this.cart_total = data.details.data.total;		
                               this.error = data.details.error;		 	     		
                               this.cart_subtotal = data.details.data.subtotal;
-                                                        
+                              
+                              
+                            if($('#custom_delivery_time :selected').text().localeCompare('No times available today')){
+                                this.checkbutton_status = 2;
+                            }else { 
+                                this.checkbutton_status = 1;
+                            }
+                            //   $("#your_select :selected").text()
+                            //  setTimeout( function(){
+                            //     if($('#custom_delivery_time :selected').text().localeCompare('No times available today')){
+                            //         this.checkbutton_status = 2;
+                            //     }else { 
+                            //         this.checkbutton_status = 1;
+                            //     }
+                            //     console.log('#########3', this.checkbutton_status);  
+                            // } ,2000);
+                                               
                               var $is_checkout = false;
                               if ( this.inArray('checkout',data.details.payload) ){
                                   $is_checkout = true;		 	     		

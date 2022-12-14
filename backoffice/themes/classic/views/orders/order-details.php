@@ -203,8 +203,8 @@ ref="refund"
       <tr>
        <td><?php echo t("Date/Time requested")?></td>
        <td>       
-       <p v-if="order_info.whento_deliver=='now'" class="m-0 text-muted" id="scheduled_at">{{order_info.schedule_at}}</p>
-       <p v-if="order_info.whento_deliver=='schedule'" class="m-0 text-muted" id="scheduled_at">{{order_info.schedule_at}}</p>
+       <p v-if="order_info.whento_deliver=='now'" class="m-0 text-muted" id="scheduled_at">{{order_info.delayed_display_time}}</p>
+       <p v-if="order_info.whento_deliver=='schedule'" class="m-0 text-muted" id="scheduled_at">{{order_info.delayed_display_time}}</p>
        </td>
       </tr>
       <tr>

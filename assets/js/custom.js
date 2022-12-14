@@ -1,4 +1,5 @@
 var timeRanges = null;
+
 $(document).ready(function(e){
     var isMobile = false; //initiate as false
     // device detection
@@ -253,7 +254,7 @@ $(document).ready(function(e){
     $(document).on('click','.modal-change-delivery',function(e){
         // console.log('===========>', 'modal-change-delivery');
 		updateDeliveryTimes($('#orderTypeTime input[type=radio]:checked').val());
-        $('#orderTypeTime').modal('show');
+        // $('#orderTypeTime').modal('show'); // modal non-active
     });
 	$(document).on('click','.savtimeonchecout',function(e){
 		$('#orderTypeTime').modal('hide');
@@ -325,6 +326,7 @@ function saveScheduleOrder(){
         type:'POST',
         data:  "delivery_date="+delivery_date+"&delivery_time="+delivery_time+"&merchant_id="+merchant_id+"&whento_deliver=schedule&YII_CSRF_TOKEN="+$('meta[name="YII_CSRF_TOKEN"]').attr('content'),
         success: function(response) {
+            // updateDeliveryTimes('POST');
             if(response.code == 1){
 				if(response.details.cart_uuid != ''){
 					localStorage.setItem('cws_cart_uuid', response.details.cart_uuid);
@@ -344,21 +346,26 @@ function updateDeliveryTimes(type){
         success: function(response) {
             if(response.code == 1){
                 var html = '';
-                // console.log('===========>', response.details);
+                console.log('===========>', response.details);
                 $.each(response.details.opening_hours.dates, function( index, value ) {
                     html += '<option value="'+value.value+'">'+value.name+'</option>';
                 });
                 $('#custom_delivery_days').html('');
                 $('#custom_delivery_days').append(html);
                 var html = '';
+                timeRanges = 1;
                 timeRanges = response.details.opening_hours.time_ranges;
-				
+				console.log('timeRanges', timeRanges);
+                console.log('#########', timeRanges.length);
 				if(timeRanges == ''){
-					$('.section-cart .btn-green').attr('style', 'display: none!important');
+                    console.log('timeRanges == 0', timeRanges == ''); 
+					$('#checkout_click').attr('style', 'display: none!important');
+                    $('.cart-summary.mt-2.mb-3').text('No times available today!').attr('style', 'font-size: 1rem!important; text-align: center!important;');
 					$('.quantity-add-cart').attr('disabled',true);
 					html = '<option value="">No times available today</option>';
 				}else{
-                    $('.section-cart .btn-green').attr('style', 'display: block');
+                    $('#checkout_click').attr('style', 'display: block');
+                    $('.cart-summary.mt-2.mb-3').attr('style', 'display: none');
 					$.each(response.details.opening_hours.time_ranges[getFirstKey(response.details.opening_hours.time_ranges)], function( index, value ) {
                         
                         // current_hour = parseInt(response.details.current1.split(':')[0]);
@@ -401,8 +408,8 @@ function updateDeliveryTimes(type){
     });
 }
 function updateAddress(value){
+    console.log('updateDelivery', value);
     updateDeliveryTimes(value);
-    setTimeout(700);
     saveScheduleOrder();
     
     console.log('========>', value); // delivery, pick up

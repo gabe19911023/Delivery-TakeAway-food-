@@ -141,7 +141,7 @@
     </template>
         
 </div> <!--cart-summary -->
-
+<!-- {{checkbutton_status}} -->
 <?php if($checkout):?>
     <template v-if="cart_items.length>0">         
     <!-- <button @click="placeOrder" class="btn btn-green w-100 pointer" :disabled="hasError" 
@@ -156,13 +156,14 @@
     </button>
     </template>
 <?php else :?>    
-
-<template v-if="cart_items.length>0">          
+     
+<template v-if="cart_items.length>0 && (checkbutton_status != 1)">
+            
     <a class="btn btn-green w-100 pointer d-flex justify-content-between" id = "checkout_click" :disabled="hasError"
     :href="hasError?'javascript:;':'<?php echo isset($checkout_link)?$checkout_link:'';?>'"
     >
     <div class="flex-col"><?php echo t("Checkout")?></div>
-    <div class="flex-col">{{cart_subtotal.value}}</div>
+    <div class="flex-col">{{cart_subtotal.value}}  </div>
     <div class="fixed-loader">
         <div class="m-auto circle-loader" data-loader="circle-side"></div> 
     </div>

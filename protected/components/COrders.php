@@ -1911,8 +1911,10 @@ class COrders
 				    	 '[delivery_date]'=>$due_at
 				    	));
 		    	}
-		    }		    
-		        		
+		    }	
+			$delay_time_tmp = isset($attr['delayed_order_mins'])?$attr['delayed_order_mins']:'0';	    
+			$delayed_display_time = Date_Formatter::dateTimeDelay( $order->delivery_date." ".$order->delivery_time, 'dd MMM yyyy h:mm a', false, "",  $delay_time_tmp);
+
 		    $total = COrders::getTotal();
 		    $client = self::getClientInfo($order->client_id);
     		$order_info = array(
@@ -1951,7 +1953,8 @@ class COrders
     		  'order_notes'=>isset($attr['order_notes'])?$attr['order_notes']:'',    		  
     		  'order_change'=>isset($attr['order_change'])?floatval($attr['order_change']):0,
     		  'receive_amount'=>isset($attr['receive_amount'])?floatval($attr['receive_amount']):0,
-    		  'tracking_link'=>$tracking_link
+    		  'tracking_link'=>$tracking_link,
+			  'delayed_display_time'=>$delayed_display_time,
     		);
     		return array(
     		  'order_info'=>$order_info,    		   

@@ -108,6 +108,39 @@ class Date_Formatter
 		}
 	}
 
+	public static function dateTimeDelay($date='',$pattern='dd MMM yyyy h:mm a', $force_format=false, $res = "", $delay_time="0")
+	{								
+		Date_Formatter::Init();
+
+		$date = date("Y-m-d H:i:s", strtotime($date. "+".$delay_time." minutes"));
+
+		if(!empty($date) && !empty(self::$dateFormat) && !$force_format){
+			// $pattern = self::$dateFormat;
+			$pattern="d";
+			$res .= Yii::app()->dateFormatter->format($pattern, $date);
+			
+			$last_dig = ((int)$res)%10;
+			if($last_dig == 1)$res .="st ";
+			else if($last_dig == 2)$res .="nd ";
+			else $res .="th ";
+
+			$pattern="MMM";
+			$res .= Yii::app()->dateFormatter->format($pattern, $date);
+
+			$pattern=" (EEE)";
+			$res .= Yii::app()->dateFormatter->format($pattern, $date);
+		}		
+		if(!empty(self::$timeFormat && !$force_format )){
+			// $pattern.= " ".self::$timeFormat;
+			$pattern=" - hh:mm a";
+			$res .= Yii::app()->dateFormatter->format($pattern, $date);
+		}		
+		if(!empty($date)){
+		   	return $res;
+		}
+	}
+
+
 	
 	public static function Time($time='',$pattern='h:mm a',$force_format=false)
 	{	
