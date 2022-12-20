@@ -36,6 +36,7 @@ class ApibackendController extends CommonServices
     	        	            	    
 			$this->code = 1;
 			$this->msg = "OK";
+			// var_dump($data['data']); exit();
 			$this->details = array(
 			  'data'=>$data['data'],
 			  'total'=>$data['total'],
@@ -499,6 +500,18 @@ class ApibackendController extends CommonServices
 			//$model->status = "delayed";
 			$model->remarks = "Order is delayed by [mins]min(s)";
 			$model->ramarks_trans = json_encode(array('[mins]'=>$time_delay));
+
+		
+			$delay_time_tmp = isset($time_delay)?$time_delay:'0';
+			$delayed_display_time = Date_Formatter::dateTimeDelay( $model->delivery_date." ".$model->delivery_time, 'dd MMM yyyy h:mm a', false, "",  $delay_time_tmp);
+			$delayed_delivery_date = date("Y-m-d", strtotime($model->delivery_date." ".$model->delivery_time. "+".$delay_time_tmp." minutes"));
+			$delayed_delivery_time = date("H:i:s", strtotime($model->delivery_date." ".$model->delivery_time. "+".$delay_time_tmp." minutes"));
+
+			$model_order = new AR_ordernew;
+			$avatar=$model->findByAttributes(array('avatar'=>'oldValue','user_id'=>100));
+			$avatar->attributes=array('avatar'=>'newValue');$avatar->save();
+
+
 			if($model->save()){
 			   $this->code = 1;
 			   $this->msg = t("Customer is notified about the delayed.");					   

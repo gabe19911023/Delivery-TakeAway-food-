@@ -1898,11 +1898,20 @@ class COrders
 		    	}		    	
 		    } else $payment_name_stats = $payment_name;
 		    
+			$delay_time_tmp = isset($attr['delayed_order_mins'])?$attr['delayed_order_mins']:'0';	    
+			$delayed_display_time = Date_Formatter::dateTimeDelay( $order->delivery_date." ".$order->delivery_time, 'dd MMM yyyy h:mm a', false, "",  $delay_time_tmp);
+									// date( $order->delivery_date." ".$order->delivery_time."")
+			$add_datetime = date("Y-m-d H:i:s", strtotime($order->delivery_date." ".$order->delivery_time . "+".$delay_time_tmp." minutes"));
+			
+			// $delayed_display_time = $add_datetime;
+			// $delayed_display_time = Date_Formatter::dateTimeExpYearWeek( $order->delivery_date." ".$order->delivery_time );
+
 		    $delivery_date = ''; $due_at='';
 		    if($order->whento_deliver=="now"){
 		    	$delivery_date = t("Asap");
 		    } else {
-		    	$due_at = Date_Formatter::dateTimeExpYearWeek( $order->delivery_date." ".$order->delivery_time );
+		    	$due_at = Date_Formatter::dateTimeExpYearWeek( $add_datetime );
+				// $delayed_display_time = $due_at;
 		    	$delivery_date = t("[delivery_date]",array(
 				    	 '[delivery_date]'=>$due_at
 				    	));
@@ -1912,9 +1921,7 @@ class COrders
 				    	));
 		    	}
 		    }	
-			$delay_time_tmp = isset($attr['delayed_order_mins'])?$attr['delayed_order_mins']:'0';	    
-			$delayed_display_time = Date_Formatter::dateTimeDelay( $order->delivery_date." ".$order->delivery_time, 'dd MMM yyyy h:mm a', false, "",  $delay_time_tmp);
-
+			
 		    $total = COrders::getTotal();
 		    $client = self::getClientInfo($order->client_id);
     		$order_info = array(

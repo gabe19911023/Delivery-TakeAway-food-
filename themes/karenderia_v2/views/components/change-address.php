@@ -1,6 +1,6 @@
 <div id="vue-change-address">
 
-<div class="container-fluid" v-cloak v-if="out_of_range">
+<div class="container-fluid" v-cloak v-if="(out_of_range) || (initial_page)">
     <div class="container">
        <div class="d-flex justify-content-center">
               

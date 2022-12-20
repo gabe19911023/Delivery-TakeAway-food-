@@ -1564,7 +1564,9 @@ ul.sub-menu li.active a:hover {
 a.chevron-section:hover {
   box-shadow: 0 2px 4px 0 rgba(15, 37, 148, 0.2);
 }
-
+a.transaction-section.chevron-section {
+  box-shadow: 0 0 0 0 rgba(15, 37, 148, 0.2) !important;
+}
 .chevron-section.selected {
   border-left: 3px solid #3ecf8e;
 }

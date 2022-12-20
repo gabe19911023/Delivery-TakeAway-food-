@@ -357,15 +357,17 @@ function updateDeliveryTimes(type){
                 timeRanges = response.details.opening_hours.time_ranges;
 				console.log('timeRanges', timeRanges);
                 console.log('#########', timeRanges.length);
+                front_page_flage = $( "h5:contains('Menu')" ).length;
+
 				if(timeRanges == ''){
                     console.log('timeRanges == 0', timeRanges == ''); 
 					$('#checkout_click').attr('style', 'display: none!important');
-                    $('.cart-summary.mt-2.mb-3').text('No times available today!').attr('style', 'font-size: 1rem!important; text-align: center!important;');
-					$('.quantity-add-cart').attr('disabled',true);
+                    if( front_page_flage == 1) $('.cart-summary.mt-2.mb-3').text('No times available today!').attr('style', 'font-size: 1rem!important; text-align: center!important;');
+					// $('.quantity-add-cart').attr('disabled',true); 
 					html = '<option value="">No times available today</option>';
 				}else{
                     $('#checkout_click').attr('style', 'display: block');
-                    $('.cart-summary.mt-2.mb-3').attr('style', 'display: none');
+                    if( front_page_flage == 1) $('.cart-summary.mt-2.mb-3').attr('style','display: none');
 					$.each(response.details.opening_hours.time_ranges[getFirstKey(response.details.opening_hours.time_ranges)], function( index, value ) {
                         
                         // current_hour = parseInt(response.details.current1.split(':')[0]);
@@ -490,7 +492,7 @@ $(window).on("load", function() {
 	var srchedaddress = localStorage.getItem('srchedaddress');
 	var srchedpostl_cod = localStorage.getItem('srchedpostl_cod');
 	var srchedcite = localStorage.getItem('srchedcite');
-	//console.log('srchedadress: '+srchedadress);
+	// console.log('srchedadress: '+srchedadress);
 	if(typeof(srchedadress) != 'undefined' && srchedadress != null){
 		setTimeout(function(){
 			$('.search-geocomplete-content .form-control-text').val(srchedadress);
@@ -499,6 +501,7 @@ $(window).on("load", function() {
 			$('.address-form #postal_code').val(srchedpostl_cod);
 			$('.address-form #city').val(srchedcite);
 			
+
 			if($('#vue-change-address .container-fluid').length){
 				var msgg = "<span class='outofrang'>Sorry, we don't deliver in your area: please change your address or come to pick up your food!</span>";
 				$('#changeCAddressModal').modal('show');
@@ -509,7 +512,7 @@ $(window).on("load", function() {
 				$('#changeCAddressModal').modal('show');
 				$('.address-form .modal-body').append(msgg);
 			}
-		}, 1000);
+		}, 2000);
 	}
 });
 

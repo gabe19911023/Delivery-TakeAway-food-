@@ -114,7 +114,27 @@ class AOrders
 			foreach ($model as $item) {
 				$delivery_date = '';
 				$all_merchant[] = $item->merchant_id;
-				$all_order[] = $item->order_id;			
+				$all_order[] = $item->order_id;		
+				
+				
+				$meta_name = 'delayed_order_mins';
+				$model_order_meta = AR_ordernew_meta::model()->find('order_id=:order_id AND meta_name=:meta_name',
+													array(
+														':order_id'=>$item->order_id, 
+														':meta_name'=> $meta_name )
+													); 
+
+				
+			    $delay_time_tmp = isset($model_order_meta->meta_value)?$model_order_meta->meta_value:'0';
+				$delayed_display_time = Date_Formatter::dateTimeDelay( $item->delivery_date." ".$item->delivery_time, 'dd MMM yyyy h:mm a', false, "",  $delay_time_tmp);
+				$delayed_delivery_date = date("Y-m-d", strtotime($item->delivery_date." ".$item->delivery_time. "+".$delay_time_tmp." minutes"));
+				$delayed_delivery_time = date("H:i:s", strtotime($item->delivery_date." ".$item->delivery_time. "+".$delay_time_tmp." minutes"));
+			    
+			    $item->delivery_date = $delayed_delivery_date;
+				$item->delivery_time = $delayed_delivery_time;
+				
+				// var_dump($delayed_delivery_time); exit();
+
 				if($item->whento_deliver=="now"){
 			    	$delivery_date = t("Asap");
 			    } else {
@@ -163,8 +183,8 @@ class AOrders
 			    		}
 			    	}
 			    }*/
-			    
-			    
+				
+
 				$data[]=array(
 				  'order_name'=>t("Order #[order_id]",array('[order_id]'=>$item->order_id)),
 				  'order_id'=>$item->order_id,
@@ -177,9 +197,15 @@ class AOrders
 				  'delivery_date'=>$delivery_date,
 				  'total_items'=>$items,
 				  'is_view'=>$item->is_view,
-				  'is_critical'=>$is_critical
+				  'is_critical'=>$is_critical,
+				  'sort_date'=>strtotime($item->delivery_date." ".$item->delivery_time),
 				);
 			}
+
+			$key_values = array_column($data, 'sort_date'); 
+			array_multisort($key_values, SORT_ASC, $data);
+			// var_dump($key_values); exit();	
+
 			return array(
 			 'data'=>$data,
 			 'all_merchant'=>$all_merchant,

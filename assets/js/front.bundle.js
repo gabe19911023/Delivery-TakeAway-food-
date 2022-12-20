@@ -6483,6 +6483,7 @@
                                   if ((typeof  vm_change_address !== "undefined") && ( vm_change_address !== null)) {
                                       vm_change_address.out_of_range = data.details.out_of_range;
                                       vm_change_address.address_component = data.details.address_component;
+                                      vm_change_address.initial_page = 0; 
                                   }
                               }
                               
@@ -9496,7 +9497,8 @@
                 address_component : [],
                 addresses : [],
                 inline_edit : false,
-                formatted_address : ''
+                formatted_address : '',
+                initial_page: 1,
             };
         },
         beforeMount() {
@@ -9853,7 +9855,8 @@
         return {				
             out_of_range : false,	
             address_component : [],
-            addresses : []
+            addresses : [],
+            initial_page : 1,
         };
       },
       mounted () {
@@ -10038,6 +10041,7 @@
                  timeout: $timeout,
                  crossDomain: true,
                  beforeSend: data => {	 	    		
+
                       if(ajax_request[timenow] != null) {	
                          ajax_request[timenow].abort();
                       }
@@ -10045,6 +10049,7 @@
              });
             
              ajax_request[timenow].done( data => {	 	     	    
+                      	    
                  if ( data.code==1){	 
                      this.data_saved_payment = data.details.data;
                      this.default_payment_uuid = data.details.default_payment_uuid;

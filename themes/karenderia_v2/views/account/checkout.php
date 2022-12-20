@@ -1497,7 +1497,7 @@
 			<template #default>
 
 			<template v-if="hasData">
-             <a v-for="payment in data" @click="showPayment(payment.payment_code)" class="d-block chevron-section medium d-flex align-items-center rounded mb-2" :class="{ 'cbg-success': payment.as_default==1 }">
+             <a v-for="payment in data_saved_payment" @click="showPayment(payment.payment_code)" class="d-block chevron-section medium d-flex align-items-center rounded mb-2" :class="{ 'cbg-success': payment.as_default==1 }">
 	 		    <div class="flexcol mr-0 mr-lg-2  payment-logo-wrap">
 	 		      <i v-if="payment.logo_type=='icon'" :class="payment.logo_class"></i>
 	 		      <img v-else class="img-35 contain" :src="payment.logo_image" />

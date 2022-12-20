@@ -3464,11 +3464,15 @@
                       },
                    timeout: $timeout,
                  }).then( response => {	 
-                      if(response.data.code==1){					 	 	
+                      if(response.data.code==1){	
+                        // console.log('###################3',  document.getElementById("scheduled_at").innerHTML =  );
+                        console.log('###################3', response);
+                        window.location.reload();
+                        //    $.('#scheduled_at').val() = 		$('#footer_facebook').val()		 	 	
                           //this.$emit('afterUpdate');
                           //vm_bootbox.alert( response.data.msg , {size:'small'} );
-                          this.close();
-                          notify(response.data.msg);
+                        this.close();
+                        notify(response.data.msg);
                       } else {			 	 	
                           //vm_bootbox.alert( response.data.msg , {size:'small'} );
                           notify(response.data.msg,'error');
@@ -8918,7 +8922,8 @@
                 });
               },
               showPayment(){
-                  this.receive_amount = this.summary_total;  	   
+                  this.receive_amount = this.summary_total; 
+                  	   
                   $( this.$refs.submit_order_modal ).modal('show');
               },
               closePayment(){
